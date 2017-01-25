@@ -1,0 +1,11 @@
+#container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start; }
+  #container .column {
+    width: 15%; }
+  #container #add_column {
+    align-self: flex-end; }
+
+/*# sourceMappingURL=style.css.map */
