@@ -1,21 +1,17 @@
+
 window.onload =  function(){
-    var columnArea = document.getElementById('container');
+    var columnArea = document.querySelector('#container');
 
-    var addColumnButton = document.getElementById('add_column');
+    var addColumnButton = document.querySelector('#add_column');
+    var addPostitButton = document.querySelectorAll('.addTask');
 
-    function newColumn (){
-        columnArea.innerHTML += '<div class="column">' +
-            '                           <div class="title_column"><h3>Titre</h3></div>' +
-            '                           <input type="text" name="title"/>' +
-            '                           <a href="#" id="addTask"><img src="img/add_task.png" alt="add_task"/></a>' +
-            '                           <a id="deleteColumn" href="#">Delete</a>' +
-            '                   </div>';
-    }
-    function newTask(){
-        this.innerHTML += '<div class="task"></div>'
+    for(var i = 0; i < addPostitButton.length; i++){
+        addPostitButton[i].onclick = function(){
+            this.parentElement.innerHTML += '<div>yo</div>';
+        }
     }
 
     addColumnButton.onclick = function(){
-        newColumn();
+        columnArea.innerHTML += '<div class="column"><input type="text" name="title"/><a href="#" class="addTask">Nouveau Post-It</a><a href="#" class="deleteColumn" href="#">Delete</a></div>';
     }
 };
