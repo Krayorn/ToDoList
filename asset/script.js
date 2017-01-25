@@ -4,7 +4,7 @@ window.onload =  function(){
     var addColumnButton = document.getElementById('add_column');
 
     function newColumn (){
-        columnArea.innerHTML += '<div class="column"></div>';
+        columnArea.innerHTML += '<div class="column">TEST</div>';
     }
     function newTask(){
 
