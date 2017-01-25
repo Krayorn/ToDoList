@@ -1,23 +1,16 @@
 window.onload =  function(){
-    var columnArea = document.getElementById('container');
-    var column = document.getElementsByClassName('column');
+    var columnArea = document.querySelector('#container');
 
-    var addColumnButton = document.getElementById('add_column');
-    var addPostitButton = document.getElementById('addTask');
+    var addColumnButton = document.querySelector('#add_column');
+    var addPostitButton = document.querySelectorAll('.addTask');
 
-    function newColumn (){
-        columnArea.innerHTML += '<div class="column"><input type="text" name="title"/><a href="#" id="addTask">Nouveau Post-It</a><a id="deleteColumn" href="#">Delete</a></div>';
-    }
-    function newTask(){
-        columnArea.innerHTML += '<div class="task">Salut</div>';
-        console.log('yo');
-    }
-
-    addPostitButton.onclick = function(){
-        newTask();
-    }
+	for(var i = 0; i < addPostitButton.length; i++){
+        addPostitButton[i].onclick = function(){
+           this.parentElement.innerHTML += '<div>yo</div>';
+        }
+	}
 
     addColumnButton.onclick = function(){
-        newColumn();
+        columnArea.innerHTML += '<div class="column"><input type="text" name="title"/><a href="#" class="addTask">Nouveau Post-It</a><a href="#" class="deleteColumn" href="#">Delete</a></div>';
     }
 };
