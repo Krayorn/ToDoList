@@ -12,9 +12,15 @@ body {
     body #container .column {
       width: 28%;
       min-height: 500px;
-      border: 1px solid black;
+      border: 1px solid #000000;
       margin-top: 50px;
       margin-bottom: 50px; }
+      body #container .column .title_column {
+        width: 100%;
+        padding-top: 0px;
+        text-align: center;
+        border: 1px solid #000000;
+        background: #CCCCCC; }
     body #container #add_column {
       align-self: flex-end; }
   body header {
