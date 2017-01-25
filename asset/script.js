@@ -1,5 +1,5 @@
 window.onload =  function(){
-
+    console.log("slt");
     var columnArea = document.getElementById('container');
 
     var addColumnButton = document.getElementById('add_column');
@@ -15,4 +15,4 @@ window.onload =  function(){
         newColumn();
     }
 
-}
+};
