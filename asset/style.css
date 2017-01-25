@@ -4,7 +4,9 @@
   flex-wrap: wrap;
   align-items: flex-start; }
   #container .column {
-    width: 15%; }
+    width: 15%;
+    min-height: 250px;
+    border: 1px solid black; }
   #container #add_column {
     align-self: flex-end; }
 
