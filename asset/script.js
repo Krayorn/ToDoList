@@ -4,14 +4,40 @@ window.onload =  function(){
 
     var addColumnButton = document.querySelector('#add_column');
     var addPostitButton = document.querySelectorAll('.addTask');
+    var columnI = document.querySelectorAll('.column');
 
-    for(var i = 0; i < addPostitButton.length; i++){
-        addPostitButton[i].onclick = function(){
-            this.parentElement.innerHTML += '<div>yo</div>';
-        }
+    function addTask(currentDiv){
+        currentDiv.innerHTML += '<div>yo</div>';
+    }
+
+    function addColumn(){
+        columnArea.innerHTML += '<div class="column">' +
+                                    '<input type="text" name="title"/>' +
+                                    '<a href="#" class="addTask"><img class="icon" src="../asset/img/add_task.png"/></a>' +
+                                    '<a href="#" class="deleteColumn" href="#">' +
+                                        '<img class="icon" src="../asset/img/remove_task.png"/>' +
+                                    '</a>' +
+                                '</div>';
     }
 
     addColumnButton.onclick = function(){
-        columnArea.innerHTML += '<div class="column"><input type="text" name="title"/><a href="#" class="addTask">Nouveau Post-It</a><a href="#" class="deleteColumn" href="#">Delete</a></div>';
+        addColumn();
     }
+
+
+    /*for(var i = 0; i < addPostitButton.length; i++){
+        addPostitButton[i].onclick = function () {
+            addTask(this.parentElement);
+        }
+    }*/
+
+    var i = 0;
+    while(i < addPostitButton.length){
+        addPostitButton[i].onclick = function () {
+            addTask(this.parentElement);
+        }
+        i++;
+    }
+
+
 };
