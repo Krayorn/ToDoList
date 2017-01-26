@@ -17,7 +17,9 @@ body {
       padding: 5px;
       border-radius: 10px; }
       body #container .column .icon {
-        padding-left: 20px; }
+        padding: 0px 10px; }
+      body #container .column .icon_border_left {
+        border-left: 1px solid #333333; }
     body #container #add_column {
       align-self: flex-end; }
   body header {

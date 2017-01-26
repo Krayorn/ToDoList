@@ -1,10 +1,8 @@
-
 window.onload =  function(){
     var columnArea = document.querySelector('#container');
 
     var addColumnButton = document.querySelector('#add_column');
     var addPostitButton = document.querySelectorAll('.addTask');
-    var columnI = document.querySelectorAll('.column');
 
     function addTask(currentDiv){
         currentDiv.innerHTML += '<div>yo</div>';
@@ -12,12 +10,12 @@ window.onload =  function(){
 
     function addColumn(){
         columnArea.innerHTML += '<div class="column">' +
-                                    '<input type="text" name="title"/>' +
-                                    '<a href="#" class="addTask"><img class="icon" src="../asset/img/add_task.png"/></a>' +
-                                    '<a href="#" class="deleteColumn" href="#">' +
-                                        '<img class="icon" src="../asset/img/remove_task.png"/>' +
-                                    '</a>' +
-                                '</div>';
+            '<input type="text" name="title"/>' +
+            '<a href="#" class="addTask"><img class="icon" src="../asset/img/add_task.png"/></a>' +
+            '<a href="#" class="deleteColumn" href="#">' +
+            '<img class="icon" src="../asset/img/remove_task.png"/>' +
+            '</a>' +
+            '</div>';
     }
 
     addColumnButton.onclick = function(){
@@ -25,19 +23,9 @@ window.onload =  function(){
     }
 
 
-    /*for(var i = 0; i < addPostitButton.length; i++){
+    for(var i = 0; i < addPostitButton.length; i++){
         addPostitButton[i].onclick = function () {
             addTask(this.parentElement);
         }
-    }*/
-
-    var i = 0;
-    while(i < addPostitButton.length){
-        addPostitButton[i].onclick = function () {
-            addTask(this.parentElement);
-        }
-        i++;
     }
-
-
 };
