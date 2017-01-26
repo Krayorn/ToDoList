@@ -4,7 +4,6 @@ window.onload =  function(){
 
     var addColumnButton = document.querySelector('#add_column');
     var addPostitButton = document.querySelectorAll('.addTask');
-    var columnI = document.querySelectorAll('.column');
 
     function addTask(currentDiv){
         currentDiv.innerHTML += '<div>yo</div>';
@@ -25,19 +24,9 @@ window.onload =  function(){
     }
 
 
-    /*for(var i = 0; i < addPostitButton.length; i++){
+    for(var i = 0; i < addPostitButton.length; i++){
         addPostitButton[i].onclick = function () {
             addTask(this.parentElement);
         }
-    }*/
-
-    var i = 0;
-    while(i < addPostitButton.length){
-        addPostitButton[i].onclick = function () {
-            addTask(this.parentElement);
-        }
-        i++;
     }
-
-
 };
