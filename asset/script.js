@@ -5,7 +5,9 @@ window.onload =  function(){
     var addPostitButton = document.querySelectorAll('.addTask');
 
     function addTask(currentDiv){
-        currentDiv.innerHTML += '<div>yo</div>';
+        var d=document.createElement("div");
+        d.classList.add("tasks");
+        currentDiv.appendChild(d);
     }
 
     function addColumn(){
@@ -13,7 +15,7 @@ window.onload =  function(){
             '<input type="text" name="title"/>' +
             '<a href="#" class="addTask"><img class="icon" src="../asset/img/add_task.png"/></a>' +
             '<a href="#" class="deleteColumn" href="#">' +
-            '<img class="icon" src="../asset/img/remove_task.png"/>' +
+            '<img class="icon icon_border_left" src="../asset/img/remove_task.png"/>' +
             '</a>' +
             '</div>';
     }

@@ -20,6 +20,12 @@ body {
         padding: 0px 10px; }
       body #container .column .icon_border_left {
         border-left: 1px solid #333333; }
+      body #container .column .tasks {
+        width: 90%;
+        min-height: 100px;
+        margin: 5px auto;
+        border: 1px solid #0079BF;
+        border-radius: 20px; }
     body #container #add_column {
       align-self: flex-end; }
   body header {
