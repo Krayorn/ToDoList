@@ -18,16 +18,20 @@ window.onload =  function(){
             '<img class="icon icon_border_left" src="../asset/img/remove_task.png"/>' +
             '</a>' +
             '</div>';
+            addPostitButton = document.querySelectorAll('.addTask');
+            console.log(addPostitButton);
+            refresh_for();
     }
 
     addColumnButton.onclick = function(){
         addColumn();
     }
 
-
+function refresh_for(){
     for(var i = 0; i < addPostitButton.length; i++){
         addPostitButton[i].onclick = function () {
             addTask(this.parentElement);
         }
     }
+}
 };
