@@ -6,6 +6,8 @@ window.onload =  function(){
         var d=document.createElement("div");
         d.classList.add("tasks");
         currentDiv.appendChild(d);
+        d.innerHTML +=  '<span class="titletask">Title</span>' +
+                        '<input class="hide_title" type="text"/><input class="tasktitle_button" type="submit"/>';
     }
 
     function addColumn(){
