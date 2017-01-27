@@ -26,6 +26,13 @@ body {
         margin: 5px auto;
         border: 1px solid #0079BF;
         border-radius: 20px; }
+      body #container .column .hide_input {
+        display: none; }
+      body #container .column .hide_button {
+        display: none; }
+      body #container .column .titlecolumn {
+        text-align: center;
+        cursor: pointer; }
     body #container #add_column {
       align-self: flex-end; }
   body header {
