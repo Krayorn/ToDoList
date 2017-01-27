@@ -7,7 +7,11 @@ window.onload =  function(){
         d.classList.add("tasks");
         currentDiv.appendChild(d);
         d.innerHTML +=  '<span class="titletask">Title</span>' +
+<<<<<<< HEAD
             '<input class="hide_title" type="text"/><input class="tasktitle_button" type="submit"/>';
+=======
+                        '<input class="hide_title" type="text"/><input class="tasktitle_button" type="submit"/>';
+>>>>>>> bed64c0ba8b5656d9fe21550cc72b07e1dfe671c
     }
 
     function addColumn(){
