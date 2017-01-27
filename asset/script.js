@@ -2,7 +2,6 @@ window.onload =  function(){
     var columnArea = document.querySelector('#container');
 
     var addColumnButton = document.querySelector('#add_column');
-    var addPostitButton = document.querySelectorAll('.addTask');
 
     function addTask(currentDiv){
         var d=document.createElement("div");
@@ -19,8 +18,12 @@ window.onload =  function(){
             '</a>' +
             '</div>';
             addPostitButton = document.querySelectorAll('.addTask');
-            console.log(addPostitButton);
+            deleteColumnButton = document.querySelectorAll('.deleteColumn');
             refresh_for();
+    }
+
+    function deleteColumn(currentDiv){
+        columnArea.removeChild(currentDiv);
     }
 
     addColumnButton.onclick = function(){
@@ -31,6 +34,11 @@ function refresh_for(){
     for(var i = 0; i < addPostitButton.length; i++){
         addPostitButton[i].onclick = function () {
             addTask(this.parentElement);
+        }
+    }
+    for(var i = 0; i < deleteColumnButton.length; i++){
+        deleteColumnButton[i].onclick = function(){
+            deleteColumn(this.parentElement);
         }
     }
 }
