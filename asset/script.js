@@ -6,6 +6,13 @@ window.onload =  function(){
         var d=document.createElement("div");
         d.classList.add("tasks");
         currentDiv.appendChild(d);
+        d.innerHTML += '<span class="title_task"></span>' +
+        '<input class="hide_input" type="text" name="title"/><input class="hide_button" type="submit"/>' +
+        '<p class="description_Task"></p>' +
+        '<textarea class="hide_textarea" rows="3" cols="10"></textarea>';
+        d.onclick = function(){
+            
+        } 
     }
 
     function addColumn(){
@@ -27,19 +34,17 @@ window.onload =  function(){
 
     function changetitle(currentDiv){
         element = currentDiv ;
-        var myInput = element.childNodes[1];
-        var myButton = element.childNodes[2];
-        myInput.style.display= 'inline';
-        myButton.style.display= 'inline';
-        myButton.onclick = function(){
-            if (myInput.value.length == ''){
+        element.childNodes[1].style.display= 'inline';
+        element.childNodes[2].style.display= 'inline';
+        element.childNodes[2].onclick = function(){
+            if (element.childNodes[2].value.length == ''){
                 element.childNodes[0].innerHTML = 'Title';  
             }   
             else{
-                element.childNodes[0].innerHTML = myInput.value;
+                element.childNodes[0].innerHTML = element.childNodes[1].value;
             }
-            myInput.style.display= 'none';
-            myButton.style.display= 'none';
+            element.childNodes[1].style.display= 'none';
+            element.childNodes[2].style.display= 'none';
         }
     }
 
