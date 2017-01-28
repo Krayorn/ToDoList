@@ -36,10 +36,16 @@ body {
         border-radius: 20px;
         padding: 5px; }
         body #container .column .tasks .textarea {
-          height: 100px;
-          width: 80%; }
+          min-height: 100px;
+          width: 80%;
+          display: none; }
+        body #container .column .tasks .input_textarea {
+          display: none; }
+        body #container .column .tasks .input_title_task {
+          display: none; }
         body #container .column .tasks .hide_title {
-          width: 80%; }
+          width: 80%;
+          display: none; }
         body #container .column .tasks .taskTitle {
           font-family: 'Lato', sans-serif; }
         body #container .column .tasks .taskDescription {

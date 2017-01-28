@@ -21,13 +21,15 @@ window.onload =  function(){
         var d=document.createElement("div");
         d.classList.add("tasks");
         currentDiv.appendChild(d);
-        d.innerHTML +=  '<div class="taskTitle"></div>' +
+        d.innerHTML +=  '<div class="taskTitle">Titre de la tâche</div>' +
             '<input class="hide_title" placeholder="Titre" type="text"/>' +
-            '<div class="taskDescription"></div>' +
+            '<input class="input_title_task" value="Valider" type="submit"/>' +
+            '<div class="taskDescription">Description de la tâche</div>' +
             '<textarea class="textarea" placeholder="Description..."></textarea>' +
-            '<input class="task_button" type="submit"/>';
+            '<input class="input_textarea" value="Valider" type="submit"/>';
 
-        task_button = document.querySelectorAll('.task_button');
+        taskTitle = document.querySelectorAll('.taskTitle');
+        taskDescription = document.querySelectorAll('.taskDescription');
         refresh_for();
     }
 
@@ -35,21 +37,39 @@ window.onload =  function(){
         columnArea.removeChild(currentDiv);
     }
 
-    function publishTask(currentDiv){
-        var title = currentDiv.childNodes[1];
-        var description = currentDiv.childNodes[3];
-        var submitButton = currentDiv.childNodes[4];
-
-        if (title.value.length > 0){
-            currentDiv.childNodes[0].innerHTML = title.value;
-            if(description.value.length > 0){
-                currentDiv.childNodes[2].innerHTML = description.value;
+    function publishTitleTask(currentDiv){
+        var titleTask = currentDiv.childNodes[1];
+        var titleTaskButton = currentDiv.childNodes[2];
+        titleTask.style.display= 'inline';
+        titleTaskButton.style.display= 'inline';
+        titleTaskButton.onclick = function(){
+            if (titleTask.value.length > 0){
+                currentDiv.childNodes[0].innerHTML = titleTask.value;
             }
-            title.style.display= 'none';
-            description.style.display= 'none';
-            submitButton.style.display= 'none';
+            else{
+                currentDiv.childNodes[0].innerHTML = 'Titre de la tâche';
+            }
+            titleTask.style.display= 'none';
+            titleTaskButton.style.display= 'none';
         }
     }
+    function publishDescriptionTask(currentDiv){
+        var descriptionTask = currentDiv.childNodes[4];
+        var descriptionTaskButton = currentDiv.childNodes[5];
+        descriptionTask.style.display= 'inline';
+        descriptionTaskButton.style.display= 'inline';
+        descriptionTaskButton.onclick = function(){
+            if (descriptionTask.value.length > 0){
+                currentDiv.childNodes[3].innerHTML = descriptionTask.value;
+            }
+            else{
+                currentDiv.childNodes[3].innerHTML = 'Description de la tâche';
+            }
+            descriptionTask.style.display= 'none';
+            descriptionTaskButton.style.display= 'none';
+        }
+    }
+
 
     function changetitle(currentDiv){
         var myInput = currentDiv.childNodes[1];
@@ -90,11 +110,17 @@ window.onload =  function(){
                 changetitle(this.parentElement);
             }
         }
-        for(var i = 0; i < task_button.length; i++){
-            task_button[i].onclick = function(){
-                publishTask(this.parentElement);
+        for(var i = 0; i < taskTitle.length; i++){
+            taskTitle[i].onclick = function(){
+                publishTitleTask(this.parentElement);
             }
         }
+        for(var i = 0; i < taskDescription.length; i++){
+            taskDescription[i].onclick = function(){
+                publishDescriptionTask(this.parentElement);
+            }
+        }
+
 
     }
 };

@@ -46,11 +46,19 @@ body{
 
 
         .textarea{
-          height: 100px;
+          min-height: 100px;
           width: 80%;
+          display : none;
+        }
+        .input_textarea{
+          display : none;
+        }
+        .input_title_task{
+          display : none;
         }
         .hide_title{
           width: 80%;
+          display : none;
         }
         .taskTitle{
           font-family: 'Lato', sans-serif;
