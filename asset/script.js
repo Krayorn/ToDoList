@@ -2,7 +2,7 @@ window.onload =  function(){
     var columnArea = document.querySelector('#container');
     var addColumnButton = document.querySelector('#add_column');
 
-
+// this function add a new column 
     function addColumn(){
         columnArea.innerHTML += '<div class="column">' +
             '<span class="title_column">Title</span>' +
@@ -16,6 +16,7 @@ window.onload =  function(){
         refresh_for();
     }
 
+// this function add a new task in the right column
     function addTask(currentDiv){
         var d=document.createElement("div");
         d.classList.add("tasks");
@@ -32,10 +33,12 @@ window.onload =  function(){
         refresh_for();
     }
 
+// this function delete a column and all the task in the column
     function deleteColumn(currentDiv){
         columnArea.removeChild(currentDiv);
     }
 
+// this function change the title of a task
     function publishTitleTask(currentDiv){
         var titleTask = currentDiv.childNodes[1];
         var titleTaskButton = currentDiv.childNodes[2];
@@ -52,6 +55,8 @@ window.onload =  function(){
             titleTaskButton.classList.add('none');
         }
     }
+
+// this function change the description of a task
     function publishDescriptionTask(currentDiv){
         var descriptionTask = currentDiv.childNodes[4];
         var descriptionTaskButton = currentDiv.childNodes[5];
@@ -69,7 +74,7 @@ window.onload =  function(){
         }
     }
 
-
+// this function change the title of a column
     function changetitle(currentDiv){
         var myInput = currentDiv.childNodes[1];
         var myButton = currentDiv.childNodes[2];
@@ -87,12 +92,11 @@ window.onload =  function(){
         }
     }
 
-
-
     addColumnButton.onclick = function(){
         addColumn();
     }
 
+// this function is called when the user creat a new column or task, she actualise the variable wich take the number of button for delete add or change something
     function refresh_for(){
         for(var i = 0; i < addPostitButton.length; i++){
             addPostitButton[i].onclick = function () {
