@@ -36,15 +36,14 @@ window.onload =  function(){
     }
 
     function publishTask(currentDiv){
-        element = currentDiv ;
-        var title = element.childNodes[1];
-        var description = element.childNodes[3];
-        var submitButton = element.childNodes[4];
+        var title = currentDiv.childNodes[1];
+        var description = currentDiv.childNodes[3];
+        var submitButton = currentDiv.childNodes[4];
 
         if (title.value.length > 0){
-            element.childNodes[0].innerHTML = title.value;
+            currentDiv.childNodes[0].innerHTML = title.value;
             if(description.value.length > 0){
-                element.childNodes[2].innerHTML = description.value;
+                currentDiv.childNodes[2].innerHTML = description.value;
             }
             title.style.display= 'none';
             description.style.display= 'none';
@@ -53,17 +52,16 @@ window.onload =  function(){
     }
 
     function changetitle(currentDiv){
-        element = currentDiv ;
-        var myInput = element.childNodes[1];
-        var myButton = element.childNodes[2];
+        var myInput = currentDiv.childNodes[1];
+        var myButton = currentDiv.childNodes[2];
         myInput.style.display= 'inline';
         myButton.style.display= 'inline';
         myButton.onclick = function(){
             if (myInput.value.length == 0){
-                element.childNodes[0].innerHTML = 'Title';
+                currentDiv.childNodes[0].innerHTML = 'Title';
             }
             else{
-                element.childNodes[0].innerHTML = myInput.value;
+                currentDiv.childNodes[0].innerHTML = myInput.value;
             }
             myInput.style.display= 'none';
             myButton.style.display= 'none';
