@@ -24,7 +24,7 @@ window.onload =  function(){
         d.innerHTML +=  '<div class="taskTitle">Titre de la tâche</div>' +
             '<input class="hide_title" placeholder="Titre" type="text"/>' +
             '<input class="input_title_task" value="Valider" type="submit"/>' +
-            '<div class="taskDescription">Description de la tâche</div>' +
+            '<div class="taskDescription"><img src="../asset/img/empty.png"/></div>' +
             '<textarea class="textarea" placeholder="Description..."></textarea>' +
             '<input class="input_textarea" value="Valider" type="submit"/>';
 
@@ -60,10 +60,10 @@ window.onload =  function(){
         descriptionTaskButton.style.display= 'inline';
         descriptionTaskButton.onclick = function(){
             if (descriptionTask.value.length > 0){
-                currentDiv.childNodes[3].innerHTML = descriptionTask.value;
+                currentDiv.childNodes[3].innerHTML = '<img src="../asset/img/edit.png"/>'+ descriptionTask.value;
             }
             else{
-                currentDiv.childNodes[3].innerHTML = 'Description de la tâche';
+                currentDiv.childNodes[3].innerHTML = '<img src="../asset/img/empty.png"/>Description de la tâche';
             }
             descriptionTask.style.display= 'none';
             descriptionTaskButton.style.display= 'none';
