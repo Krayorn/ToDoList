@@ -2,33 +2,54 @@ window.onload =  function(){
     var columnArea = document.querySelector('#container');
     var addColumnButton = document.querySelector('#add_column');
 
-    function addTask(currentDiv){
-        var d=document.createElement("div");
-        d.classList.add("tasks");
-        currentDiv.appendChild(d);
-        d.innerHTML +=  '<span class="titletask">Title</span>' +
-<<<<<<< HEAD
-            '<input class="hide_title" type="text"/><input class="tasktitle_button" type="submit"/>';
-=======
-                        '<input class="hide_title" type="text"/><input class="tasktitle_button" type="submit"/>';
->>>>>>> bed64c0ba8b5656d9fe21550cc72b07e1dfe671c
-    }
+
 
     function addColumn(){
         columnArea.innerHTML += '<div class="column">' +
-            '<span class="titlecolumn">Title</span>' +
+            '<span class="title_column">Title</span>' +
             '<input class="hide_input" type="text" name="title"/><input class="hide_button" type="submit"/>' +
             '<a class="addTask"><img class="icon" src="../asset/img/add_task.png"/></a>' +
             '<a class="deleteColumn"><img class="icon icon_border_left" src="../asset/img/remove_task.png"/></a>' +
             '</div>';
         addPostitButton = document.querySelectorAll('.addTask');
         deleteColumnButton = document.querySelectorAll('.deleteColumn');
-        columntitle = document.querySelectorAll('.titlecolumn');
+        columntitle = document.querySelectorAll('.title_column');
+        refresh_for();
+    }
+
+    function addTask(currentDiv){
+        var d=document.createElement("div");
+        d.classList.add("tasks");
+        currentDiv.appendChild(d);
+        d.innerHTML +=  '<div class="taskTitle"></div>' +
+            '<input class="hide_title" placeholder="Titre" type="text"/>' +
+            '<div class="taskDescription"></div>' +
+            '<textarea class="textarea" placeholder="Description..."></textarea>' +
+            '<input class="task_button" type="submit"/>';
+
+        task_button = document.querySelectorAll('.task_button');
         refresh_for();
     }
 
     function deleteColumn(currentDiv){
         columnArea.removeChild(currentDiv);
+    }
+
+    function publishTask(currentDiv){
+        element = currentDiv ;
+        var title = element.childNodes[1];
+        var description = element.childNodes[3];
+        var submitButton = element.childNodes[4];
+
+        if (title.value.length > 0){
+            element.childNodes[0].innerHTML = title.value;
+            if(description.value.length > 0){
+                element.childNodes[2].innerHTML = description.value;
+            }
+            title.style.display= 'none';
+            description.style.display= 'none';
+            submitButton.style.display= 'none';
+        }
     }
 
     function changetitle(currentDiv){
@@ -38,7 +59,7 @@ window.onload =  function(){
         myInput.style.display= 'inline';
         myButton.style.display= 'inline';
         myButton.onclick = function(){
-            if (myInput.value.length == ''){
+            if (myInput.value.length == 0){
                 element.childNodes[0].innerHTML = 'Title';
             }
             else{
@@ -48,6 +69,8 @@ window.onload =  function(){
             myButton.style.display= 'none';
         }
     }
+
+
 
     addColumnButton.onclick = function(){
         addColumn();
@@ -69,5 +92,11 @@ window.onload =  function(){
                 changetitle(this.parentElement);
             }
         }
+        for(var i = 0; i < task_button.length; i++){
+            task_button[i].onclick = function(){
+                publishTask(this.parentElement);
+            }
+        }
+
     }
 };

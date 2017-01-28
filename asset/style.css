@@ -20,19 +20,31 @@ body {
         padding: 0px 10px; }
       body #container .column .icon_border_left {
         border-left: 1px solid #333333; }
-      body #container .column .tasks {
-        width: 90%;
-        min-height: 100px;
-        margin: 5px auto;
-        border: 1px solid #0079BF;
-        border-radius: 20px; }
       body #container .column .hide_input {
         display: none; }
       body #container .column .hide_button {
         display: none; }
-      body #container .column .titlecolumn {
+      body #container .column .title_column {
         text-align: center;
-        cursor: pointer; }
+        cursor: pointer;
+        font-family: 'Lato', sans-serif; }
+      body #container .column .tasks {
+        width: 90%;
+        min-height: 50px;
+        margin: 5px auto;
+        border: 1px solid #0079BF;
+        border-radius: 20px;
+        padding: 5px; }
+        body #container .column .tasks .textarea {
+          height: 100px;
+          width: 80%; }
+        body #container .column .tasks .hide_title {
+          width: 80%; }
+        body #container .column .tasks .taskTitle {
+          font-family: 'Lato', sans-serif; }
+        body #container .column .tasks .taskDescription {
+          font-family: 'Roboto', sans-serif;
+          color: lightslategray; }
     body #container #add_column {
       align-self: flex-end; }
   body header {
@@ -49,3 +61,5 @@ body {
   body #top {
     border-bottom: 1px solid #0079BF;
     padding: 15px 150px; }
+
+/*# sourceMappingURL=style.css.map */
