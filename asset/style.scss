@@ -24,13 +24,6 @@ body{
       .icon_border_left{
         border-left : 1px solid #333333;
       }
-      .hide_input{
-        display: none;
-      }
-      .hide_button{
-        display: none;
-      }
-
       .title_column{
         text-align: center;
         cursor : pointer;
@@ -44,21 +37,12 @@ body{
         border-radius: 20px;
         padding: 5px;
 
-
         .textarea{
           min-height: 100px;
           width: 80%;
-          display : none;
-        }
-        .input_textarea{
-          display : none;
-        }
-        .input_title_task{
-          display : none;
         }
         .hide_title{
           width: 80%;
-          display : none;
         }
         .taskTitle{
           font-family: 'Lato', sans-serif;
@@ -99,4 +83,7 @@ body{
     border-bottom : 1px solid #0079BF;
     padding: 15px 150px;
   }
+}
+.none{
+  display: none;
 }

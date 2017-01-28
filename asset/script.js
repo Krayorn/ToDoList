@@ -3,11 +3,10 @@ window.onload =  function(){
     var addColumnButton = document.querySelector('#add_column');
 
 
-
     function addColumn(){
         columnArea.innerHTML += '<div class="column">' +
             '<span class="title_column">Title</span>' +
-            '<input class="hide_input" type="text" name="title"/><input class="hide_button" type="submit"/>' +
+            '<input class="none" type="text" name="title"/><input class="none" type="submit"/>' +
             '<a class="addTask"><img class="icon" src="../asset/img/add_task.png"/></a>' +
             '<a class="deleteColumn"><img class="icon icon_border_left" src="../asset/img/remove_task.png"/></a>' +
             '</div>';
@@ -22,11 +21,11 @@ window.onload =  function(){
         d.classList.add("tasks");
         currentDiv.appendChild(d);
         d.innerHTML +=  '<div class="taskTitle">Titre de la tâche</div>' +
-            '<input class="hide_title" placeholder="Titre" type="text"/>' +
-            '<input class="input_title_task" value="Valider" type="submit"/>' +
+            '<input class="hide_title none" placeholder="Titre" type="text"/>' +
+            '<input class="none" value="Valider" type="submit"/>' +
             '<div class="taskDescription"><img src="../asset/img/empty.png"/></div>' +
-            '<textarea class="textarea" placeholder="Description..."></textarea>' +
-            '<input class="input_textarea" value="Valider" type="submit"/>';
+            '<textarea class="textarea none" placeholder="Description..."></textarea>' +
+            '<input class="none" value="Valider" type="submit"/>';
 
         taskTitle = document.querySelectorAll('.taskTitle');
         taskDescription = document.querySelectorAll('.taskDescription');
@@ -40,8 +39,8 @@ window.onload =  function(){
     function publishTitleTask(currentDiv){
         var titleTask = currentDiv.childNodes[1];
         var titleTaskButton = currentDiv.childNodes[2];
-        titleTask.style.display= 'inline';
-        titleTaskButton.style.display= 'inline';
+        titleTask.classList.remove('none');
+        titleTaskButton.classList.remove('none');
         titleTaskButton.onclick = function(){
             if (titleTask.value.length > 0){
                 currentDiv.childNodes[0].innerHTML = titleTask.value;
@@ -49,15 +48,15 @@ window.onload =  function(){
             else{
                 currentDiv.childNodes[0].innerHTML = 'Titre de la tâche';
             }
-            titleTask.style.display= 'none';
-            titleTaskButton.style.display= 'none';
+            titleTask.classList.add('none');
+            titleTaskButton.classList.add('none');
         }
     }
     function publishDescriptionTask(currentDiv){
         var descriptionTask = currentDiv.childNodes[4];
         var descriptionTaskButton = currentDiv.childNodes[5];
-        descriptionTask.style.display= 'inline';
-        descriptionTaskButton.style.display= 'inline';
+        descriptionTask.classList.remove('none');
+        descriptionTaskButton.classList.remove('none');
         descriptionTaskButton.onclick = function(){
             if (descriptionTask.value.length > 0){
                 currentDiv.childNodes[3].innerHTML = '<img src="../asset/img/edit.png"/>'+ descriptionTask.value;
@@ -65,8 +64,8 @@ window.onload =  function(){
             else{
                 currentDiv.childNodes[3].innerHTML = '<img src="../asset/img/empty.png"/>Description';
             }
-            descriptionTask.style.display= 'none';
-            descriptionTaskButton.style.display= 'none';
+            descriptionTask.classList.add('none');
+            descriptionTaskButton.classList.add('none');
         }
     }
 
@@ -74,8 +73,8 @@ window.onload =  function(){
     function changetitle(currentDiv){
         var myInput = currentDiv.childNodes[1];
         var myButton = currentDiv.childNodes[2];
-        myInput.style.display= 'inline';
-        myButton.style.display= 'inline';
+        myInput.classList.remove('none');
+        myButton.classList.remove('none');
         myButton.onclick = function(){
             if (myInput.value.length == 0){
                 currentDiv.childNodes[0].innerHTML = 'Title';
@@ -83,8 +82,8 @@ window.onload =  function(){
             else{
                 currentDiv.childNodes[0].innerHTML = myInput.value;
             }
-            myInput.style.display= 'none';
-            myButton.style.display= 'none';
+            myInput.classList.add('none');
+            myButton.classList.add('none');
         }
     }
 

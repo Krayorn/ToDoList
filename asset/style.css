@@ -20,10 +20,6 @@ body {
         padding: 0px 10px; }
       body #container .column .icon_border_left {
         border-left: 1px solid #333333; }
-      body #container .column .hide_input {
-        display: none; }
-      body #container .column .hide_button {
-        display: none; }
       body #container .column .title_column {
         text-align: center;
         cursor: pointer;
@@ -37,15 +33,9 @@ body {
         padding: 5px; }
         body #container .column .tasks .textarea {
           min-height: 100px;
-          width: 80%;
-          display: none; }
-        body #container .column .tasks .input_textarea {
-          display: none; }
-        body #container .column .tasks .input_title_task {
-          display: none; }
+          width: 80%; }
         body #container .column .tasks .hide_title {
-          width: 80%;
-          display: none; }
+          width: 80%; }
         body #container .column .tasks .taskTitle {
           font-family: 'Lato', sans-serif; }
         body #container .column .tasks .taskDescription {
@@ -67,5 +57,8 @@ body {
   body #top {
     border-bottom: 1px solid #0079BF;
     padding: 15px 150px; }
+
+.none {
+  display: none; }
 
 /*# sourceMappingURL=style.css.map */
