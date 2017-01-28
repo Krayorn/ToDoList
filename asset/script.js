@@ -63,7 +63,7 @@ window.onload =  function(){
                 currentDiv.childNodes[3].innerHTML = '<img src="../asset/img/edit.png"/>'+ descriptionTask.value;
             }
             else{
-                currentDiv.childNodes[3].innerHTML = '<img src="../asset/img/empty.png"/>Description de la tâche';
+                currentDiv.childNodes[3].innerHTML = '<img src="../asset/img/empty.png"/>Description';
             }
             descriptionTask.style.display= 'none';
             descriptionTaskButton.style.display= 'none';
