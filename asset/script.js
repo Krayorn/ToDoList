@@ -24,19 +24,42 @@ window.onload =  function(){
         d.innerHTML +=  '<div class="taskTitle">Titre de la tâche</div>' +
             '<input class="hide_title none" placeholder="Titre" type="text"/>' +
             '<input class="none" value="Valider" type="submit"/>' +
-            '<div class="taskDescription"><img src="../asset/img/empty.png"/></div>' +
+            '<a class=" dezoomButton none">dezoom</a>' +
+            '<a class="deleteTask">deleteTask</a>' +
+            '<img src="../asset/img/empty.png"/>' +
+            '<div class="taskDescription none">Description</div>' +
             '<textarea cols="10" rows="5" class="textarea none" placeholder="Description..."></textarea>' +
-            '<input class="none" value="Valider" type="submit"/>';
+            '<input class="none" value="Valider" type="submit"/>'+
+            '<a class="zoomButton">go zoom</a>';
 
         taskTitle = document.querySelectorAll('.taskTitle');
-        taskDescription = document.querySelectorAll('.taskDescription');
-        dezoomButton = document.querySelectorAll('.dezoom');
+        zoomButton = document.querySelectorAll('.zoomButton');
+        dezoomButton = document.querySelectorAll('.dezoomButton');
+        deleteTasks = document.querySelectorAll('.deleteTask');
+        tasksDescription = document.querySelectorAll('taskDescription');
         refresh_for_tasks();
     }
 
 // this function delete a column and all the task in the column
     function deleteColumn(currentDiv){
         columnArea.removeChild(currentDiv);
+    }
+
+    function zoomTasks(currentTask){
+        currentTask.classList.add('zoom');
+        currentTask.childNodes[3].classList.remove('none');
+        currentTask.childNodes[4].classList.add('none');
+        currentTask.childNodes[6].classList.remove('none');
+        currentTask.childNodes[9].classList.add('none');
+
+    }
+
+    function dezoomTask(currentTask){
+        currentTask.classList.remove('zoom');
+        currentTask.childNodes[3].classList.add('none');
+        currentTask.childNodes[4].classList.remove('none');
+        currentTask.childNodes[6].classList.add('none');
+        currentTask.childNodes[9].classList.remove('none');
     }
 
 // this function change the title of a task
@@ -58,22 +81,23 @@ window.onload =  function(){
     }
 
 // this function change the description of a task
-    function publishDescriptionTask(currentDiv){
-        var descriptionTask = currentDiv.childNodes[4];
-        var descriptionTaskButton = currentDiv.childNodes[5];
+/*    function publishDescriptionTask(currentDiv){
+        var descriptionTask = currentDiv.childNodes[5];
+        var descriptionTaskButton = currentDiv.childNodes[6];
         descriptionTask.classList.remove('none');
         descriptionTaskButton.classList.remove('none');
         descriptionTaskButton.onclick = function(){
             if (descriptionTask.value == ""){
-                currentDiv.childNodes[3].innerHTML = '<img src="../asset/img/empty.png"/>Description';
+                currentDiv.childNodes[4].innerHTML = '<img src="../asset/img/empty.png"/>Description';
             }
             else{
-                currentDiv.childNodes[3].innerHTML = '<img src="../asset/img/edit.png"/>'+ descriptionTask.value;
+                currentDiv.childNodes[4].innerHTML = '<img src="../asset/img/edit.png"/>'+ descriptionTask.value;
             }
             descriptionTask.classList.add('none');
             descriptionTaskButton.classList.add('none');
         }
     }
+*/
 
 // this function change the title of a column
     function changetitle(currentDiv){
@@ -121,14 +145,14 @@ window.onload =  function(){
                 publishTitleTask(this.parentElement);
             }
         }
-        for(var i = 0; i < taskDescription.length; i++){
-            taskDescription[i].onclick = function(){
-                publishDescriptionTask(this.parentElement);
+        for(var i = 0; i < zoomButton.length; i++){
+            zoomButton[i].onclick = function(){
+                zoomTasks(this.parentElement);
             }
         }
         for(var i = 0; i < dezoomButton.length; i++){
             dezoomButton[i].onclick = function(){
-                console.log('slt');
+                dezoomTask(this.parentElement);
             }
         }
     }
