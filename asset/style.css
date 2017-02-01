@@ -43,6 +43,8 @@ body {
         body #container .column .tasks .taskDescription {
           font-family: 'Roboto', sans-serif;
           color: lightslategray; }
+        body #container .column .tasks .empty_task {
+          margin: 0 39%; }
     body #container #add_column {
       align-self: flex-end; }
   body header {

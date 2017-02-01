@@ -48,10 +48,15 @@ body{
           font-family: 'Lato', sans-serif;
           display: flex;
           justify-content: space-between;
+
         }
         .taskDescription{
           font-family: 'Roboto', sans-serif;
           color : lightslategray;
+        }
+
+        .empty_task{
+          margin: 0 39%;
         }
 
       }
