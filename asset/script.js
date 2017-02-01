@@ -124,7 +124,5 @@ window.onload =  function(){
                 publishDescriptionTask(this.parentElement);
             }
         }
-
-
     }
 };
