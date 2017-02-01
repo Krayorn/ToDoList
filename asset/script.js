@@ -24,13 +24,14 @@ window.onload =  function(){
         d.innerHTML +=  '<div class="taskTitle">Titre de la tâche</div>' +
             '<input class="hide_title none" placeholder="Titre" type="text"/>' +
             '<input class="none" value="Valider" type="submit"/>' +
-            '<a class=" dezoomButton none">dezoom</a>' +
-            '<a class="deleteTask">deleteTask</a>' +
-            '<img src="../asset/img/empty.png"/>' +
+            '<img src="../asset/img/dezoom.png" class=" dezoomButton none" />' +
+            '<img src="../asset/img/zoom.png" class="zoomButton" />' +
+            '<img class="empty_task" src="../asset/img/empty.png"/>' +
             '<div class="taskDescription none">Description</div>' +
             '<textarea cols="10" rows="5" class="textarea none" placeholder="Description..."></textarea>' +
             '<input class="none" value="Valider" type="submit"/>'+
-            '<a class="zoomButton">go zoom</a>';
+            '<img src="../asset/img/delete_task.png" class="deleteTask" />';
+
 
         taskTitle = document.querySelectorAll('.taskTitle');
         zoomButton = document.querySelectorAll('.zoomButton');
