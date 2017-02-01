@@ -81,6 +81,7 @@ window.onload =  function(){
     }
 
 // this function change the description of a task
+
     /*    function publishDescriptionTask(currentDiv){
      var descriptionTask = currentDiv.childNodes[5];
      var descriptionTaskButton = currentDiv.childNodes[6];
@@ -98,6 +99,23 @@ window.onload =  function(){
      }
      }
      */
+/*    function publishDescriptionTask(currentDiv){
+        var descriptionTask = currentDiv.childNodes[5];
+        var descriptionTaskButton = currentDiv.childNodes[6];
+        descriptionTask.classList.remove('none');
+        descriptionTaskButton.classList.remove('none');
+        descriptionTaskButton.onclick = function(){
+            if (descriptionTask.value == ""){
+                currentDiv.childNodes[4].innerHTML = '<img src="../asset/img/empty.png"/>Description';
+            }
+            else{
+                currentDiv.childNodes[4].innerHTML = '<img src="../asset/img/edit.png"/>'+ descriptionTask.value;
+            }
+            descriptionTask.classList.add('none');
+            descriptionTaskButton.classList.add('none');
+        }
+    }
+*/
 
 // this function change the title of a column
     function changetitle(currentDiv){
