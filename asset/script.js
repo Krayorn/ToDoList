@@ -103,6 +103,25 @@ window.onload =  function(){
     }
 
 // this function change the description of a task
+/*    function publishDescriptionTask(currentDiv){
+        var descriptionTask = currentDiv.childNodes[5];
+        var descriptionTaskButton = currentDiv.childNodes[6];
+        descriptionTask.classList.remove('none');
+>>>>>>> 5bc7af387de7f3f603eb09031dc233ccd1570913
+        descriptionTaskButton.classList.remove('none');
+        descriptionTaskButton.onclick = function(){
+            if(textarea.value == ""){
+                descriptionTask.innerHTML = "Description";
+            }
+            else{
+                descriptionTask.innerHTML = textarea.value;
+            }
+            textarea.classList.add('none');
+            descriptionTaskButton.classList.add('none');
+        }
+    }
+
+// this function change the description of a task
     /*    function publishDescriptionTask(currentDiv){
      var descriptionTask = currentDiv.childNodes[5];
      var descriptionTaskButton = currentDiv.childNodes[6];
