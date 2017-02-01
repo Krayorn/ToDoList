@@ -13,7 +13,7 @@ window.onload =  function(){
         addPostitButton = document.querySelectorAll('.addTask');
         deleteColumnButton = document.querySelectorAll('.deleteColumn');
         columntitle = document.querySelectorAll('.title_column');
-        refresh_for();
+        refresh_for_column();
     }
 
 // this function add a new task in the right column
@@ -30,7 +30,8 @@ window.onload =  function(){
 
         taskTitle = document.querySelectorAll('.taskTitle');
         taskDescription = document.querySelectorAll('.taskDescription');
-        refresh_for();
+        dezoomButton = document.querySelectorAll('.dezoom');
+        refresh_for_tasks();
     }
 
 // this function delete a column and all the task in the column
@@ -58,17 +59,16 @@ window.onload =  function(){
 
 // this function change the description of a task
     function publishDescriptionTask(currentDiv){
-        currentDiv.classList.add('zoom')
         var descriptionTask = currentDiv.childNodes[4];
         var descriptionTaskButton = currentDiv.childNodes[5];
         descriptionTask.classList.remove('none');
         descriptionTaskButton.classList.remove('none');
         descriptionTaskButton.onclick = function(){
-            if (descriptionTask.value.length > 0){
-                currentDiv.childNodes[3].innerHTML = '<img src="../asset/img/edit.png"/>'+ descriptionTask.value;
+            if (descriptionTask.value == ""){
+                currentDiv.childNodes[3].innerHTML = '<img src="../asset/img/empty.png"/>Description';
             }
             else{
-                currentDiv.childNodes[3].innerHTML = '<img src="../asset/img/empty.png"/>Description';
+                currentDiv.childNodes[3].innerHTML = '<img src="../asset/img/edit.png"/>'+ descriptionTask.value;
             }
             descriptionTask.classList.add('none');
             descriptionTaskButton.classList.add('none');
@@ -98,7 +98,7 @@ window.onload =  function(){
     }
 
 // this function is called when the user creat a new column or task, she actualise the variable wich take the number of button for delete add or change something
-    function refresh_for(){
+    function refresh_for_column(){
         for(var i = 0; i < addPostitButton.length; i++){
             addPostitButton[i].onclick = function () {
                 addTask(this.parentElement);
@@ -114,6 +114,8 @@ window.onload =  function(){
                 changetitle(this.parentElement);
             }
         }
+    }
+    function refresh_for_tasks(){
         for(var i = 0; i < taskTitle.length; i++){
             taskTitle[i].onclick = function(){
                 publishTitleTask(this.parentElement);
@@ -124,7 +126,10 @@ window.onload =  function(){
                 publishDescriptionTask(this.parentElement);
             }
         }
-
-
+        for(var i = 0; i < dezoomButton.length; i++){
+            dezoomButton[i].onclick = function(){
+                console.log('slt');
+            }
+        }
     }
 };
