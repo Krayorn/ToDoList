@@ -36,7 +36,7 @@ window.onload =  function(){
         zoomButton = document.querySelectorAll('.zoomButton');
         dezoomButton = document.querySelectorAll('.dezoomButton');
         deleteTasks = document.querySelectorAll('.deleteTask');
-        tasksDescription = document.querySelectorAll('taskDescription');
+        tasksDescription = document.querySelectorAll('.taskDescription');
         refresh_for_tasks();
     }
 
@@ -62,8 +62,12 @@ window.onload =  function(){
         currentTask.childNodes[9].classList.remove('none');
     }
 
+    function deleteTask(currentTask){
+        currentTask.parentElement.removeChild(currentTask);
+    }
+
 // this function change the title of a task
-    function publishTitleTask(currentDiv){
+    function changeTitleTask(currentDiv){
         var titleTask = currentDiv.childNodes[1];
         var titleTaskButton = currentDiv.childNodes[2];
         titleTask.classList.remove('none');
@@ -77,6 +81,24 @@ window.onload =  function(){
             }
             titleTask.classList.add('none');
             titleTaskButton.classList.add('none');
+        }
+    }
+
+    function changeDescriptionTask(currentTask){
+        var descriptionTask = currentTask.childNodes[6];
+        var textarea = currentTask.childNodes[7];
+        var descriptionTaskButton = currentTask.childNodes[8];
+        textarea.classList.remove('none');
+        descriptionTaskButton.classList.remove('none');
+        descriptionTaskButton.onclick = function(){
+            if(textarea.value == ""){
+                descriptionTask.innerHTML = "Description";
+            }
+            else{
+                descriptionTask.innerHTML = textarea.value;
+            }
+            textarea.classList.add('none');
+            descriptionTaskButton.classList.add('none');
         }
     }
 
@@ -142,7 +164,7 @@ window.onload =  function(){
     function refresh_for_tasks(){
         for(var i = 0; i < taskTitle.length; i++){
             taskTitle[i].onclick = function(){
-                publishTitleTask(this.parentElement);
+                changeTitleTask(this.parentElement);
             }
         }
         for(var i = 0; i < zoomButton.length; i++){
@@ -153,6 +175,16 @@ window.onload =  function(){
         for(var i = 0; i < dezoomButton.length; i++){
             dezoomButton[i].onclick = function(){
                 dezoomTask(this.parentElement);
+            }
+        }
+        for(var i = 0; i < deleteTasks.length; i++){
+            deleteTasks[i].onclick = function(){
+                deleteTask(this.parentElement);
+            }
+        }
+        for(var i = 0; i < tasksDescription.length; i++){
+            tasksDescription[i].onclick = function(){
+                changeDescriptionTask(this.parentElement);
             }
         }
     }
