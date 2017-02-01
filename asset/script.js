@@ -27,8 +27,9 @@ window.onload =  function(){
             '<img src="../asset/img/dezoom.png" class=" dezoomButton none" />' +
             '<img src="../asset/img/zoom.png" class="zoomButton" />' +
             '<img class="empty_task" src="../asset/img/empty.png"/>' +
+            '<img class="empty_task none" src="../asset/img/edit.png"/>' +
             '<div class="taskDescription none">Description</div>' +
-            '<textarea cols="10" rows="5" class="textarea none" placeholder="Description..."></textarea>' +
+            '<textarea cols="100" rows="10" class="textarea none" placeholder="Description..."></textarea>' +
             '<input class="none" value="Valider" type="submit"/>'+
             '<img src="../asset/img/delete_task.png" class="deleteTask" />';
 
@@ -48,19 +49,21 @@ window.onload =  function(){
 
     function zoomTasks(currentTask){
         currentTask.classList.add('zoom');
+        currentTask.classList.remove('tasks');
         currentTask.childNodes[3].classList.remove('none');
         currentTask.childNodes[4].classList.add('none');
-        currentTask.childNodes[6].classList.remove('none');
-        currentTask.childNodes[9].classList.add('none');
+        currentTask.childNodes[7].classList.remove('none');
+        currentTask.childNodes[10].classList.add('none');
 
     }
 
     function dezoomTask(currentTask){
         currentTask.classList.remove('zoom');
+        currentTask.classList.add('tasks');
         currentTask.childNodes[3].classList.add('none');
         currentTask.childNodes[4].classList.remove('none');
-        currentTask.childNodes[6].classList.add('none');
-        currentTask.childNodes[9].classList.remove('none');
+        currentTask.childNodes[7].classList.add('none');
+        currentTask.childNodes[10].classList.remove('none');
     }
 
     function deleteTask(currentTask){
@@ -86,60 +89,26 @@ window.onload =  function(){
     }
 
     function changeDescriptionTask(currentTask){
-        var descriptionTask = currentTask.childNodes[6];
-        var textarea = currentTask.childNodes[7];
-        var descriptionTaskButton = currentTask.childNodes[8];
+        var descriptionTask = currentTask.childNodes[7];
+        var textarea = currentTask.childNodes[8];
+        var descriptionTaskButton = currentTask.childNodes[9];
         textarea.classList.remove('none');
         descriptionTaskButton.classList.remove('none');
         descriptionTaskButton.onclick = function(){
             if(textarea.value == ""){
                 descriptionTask.innerHTML = "Description";
+                currentTask.childNodes[5].classList.remove('none');;
+                currentTask.childNodes[6].classList.add('none');;
             }
             else{
                 descriptionTask.innerHTML = textarea.value;
+                currentTask.childNodes[6].classList.remove('none');;
+                currentTask.childNodes[5].classList.add('none');;
             }
             textarea.classList.add('none');
             descriptionTaskButton.classList.add('none');
         }
     }
-
-// this function change the description of a task
-/*    function publishDescriptionTask(currentDiv){
-        var descriptionTask = currentDiv.childNodes[5];
-        var descriptionTaskButton = currentDiv.childNodes[6];
-        descriptionTask.classList.remove('none');
->>>>>>> 5bc7af387de7f3f603eb09031dc233ccd1570913
-        descriptionTaskButton.classList.remove('none');
-        descriptionTaskButton.onclick = function(){
-            if(textarea.value == ""){
-                descriptionTask.innerHTML = "Description";
-            }
-            else{
-                descriptionTask.innerHTML = textarea.value;
-            }
-            textarea.classList.add('none');
-            descriptionTaskButton.classList.add('none');
-        }
-    }
-
-// this function change the description of a task
-    /*    function publishDescriptionTask(currentDiv){
-     var descriptionTask = currentDiv.childNodes[5];
-     var descriptionTaskButton = currentDiv.childNodes[6];
-     descriptionTask.classList.remove('none');
-     descriptionTaskButton.classList.remove('none');
-     descriptionTaskButton.onclick = function(){
-     if (descriptionTask.value == ""){
-     currentDiv.childNodes[4].innerHTML = '<img src="../asset/img/empty.png"/>Description';
-     }
-     else{
-     currentDiv.childNodes[4].innerHTML = '<img src="../asset/img/edit.png"/>'+ descriptionTask.value;
-     }
-     descriptionTask.classList.add('none');
-     descriptionTaskButton.classList.add('none');
-     }
-     }
-     */
 
 // this function change the title of a column
     function changetitle(currentDiv){
