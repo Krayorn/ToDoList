@@ -61,4 +61,10 @@ body {
 .none {
   display: none; }
 
+.zoom {
+  position: relative;
+  background-color: red;
+  left: 25%;
+  width: 30px; }
+
 /*# sourceMappingURL=style.css.map */

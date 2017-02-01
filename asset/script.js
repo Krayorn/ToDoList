@@ -25,7 +25,7 @@ window.onload =  function(){
             '<input class="hide_title none" placeholder="Titre" type="text"/>' +
             '<input class="none" value="Valider" type="submit"/>' +
             '<div class="taskDescription"><img src="../asset/img/empty.png"/></div>' +
-            '<textarea class="textarea none" placeholder="Description..."></textarea>' +
+            '<textarea cols="10" rows="5" class="textarea none" placeholder="Description..."></textarea>' +
             '<input class="none" value="Valider" type="submit"/>';
 
         taskTitle = document.querySelectorAll('.taskTitle');
@@ -58,6 +58,7 @@ window.onload =  function(){
 
 // this function change the description of a task
     function publishDescriptionTask(currentDiv){
+        currentDiv.classList.add('zoom')
         var descriptionTask = currentDiv.childNodes[4];
         var descriptionTaskButton = currentDiv.childNodes[5];
         descriptionTask.classList.remove('none');
