@@ -46,6 +46,8 @@ body{
         }
         .taskTitle{
           font-family: 'Lato', sans-serif;
+          display: flex;
+          justify-content: space-between;
         }
         .taskDescription{
           font-family: 'Roboto', sans-serif;
@@ -88,7 +90,7 @@ body{
   display: none;
 }
 .zoom{
-  position: absolute;
+  position: relative;
   background-color: red;
   left: 25%;
   width: 30px;

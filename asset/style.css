@@ -37,7 +37,9 @@ body {
         body #container .column .tasks .hide_title {
           width: 80%; }
         body #container .column .tasks .taskTitle {
-          font-family: 'Lato', sans-serif; }
+          font-family: 'Lato', sans-serif;
+          display: flex;
+          justify-content: space-between; }
         body #container .column .tasks .taskDescription {
           font-family: 'Roboto', sans-serif;
           color: lightslategray; }
