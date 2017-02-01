@@ -66,9 +66,12 @@ body {
   display: none; }
 
 .zoom {
-  position: relative;
-  background-color: red;
-  left: 25%;
-  width: 30px; }
+  position: absolute;
+  background-color: #7FCBFE;
+  padding: 20px;
+  left: 15%;
+  width: 70%;
+  height: 250px;
+  border-radius: 20px; }
 
 /*# sourceMappingURL=style.css.map */
