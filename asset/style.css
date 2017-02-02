@@ -1,77 +1,124 @@
-body {
-  padding: 0px;
-  margin: 0px; }
-  body #container {
-    width: 80%;
-    margin: auto;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    justify-content: space-around;
-    border: 3px solid #FFFFFF; }
-    body #container .column {
-      width: 28%;
-      min-height: 500px;
-      border: 2px solid #0079BF;
-      margin-top: 50px;
-      padding: 5px;
-      border-radius: 10px; }
-      body #container .column .icon {
-        padding: 0px 10px; }
-      body #container .column .icon_border_left {
-        border-left: 1px solid #333333; }
-      body #container .column .title_column {
-        text-align: center;
-        cursor: pointer;
-        font-family: 'Lato', sans-serif; }
-      body #container .column .tasks {
-        width: 90%;
-        min-height: 50px;
-        margin: 5px auto;
-        border: 1px solid #0079BF;
-        border-radius: 20px;
-        padding: 5px; }
-        body #container .column .tasks .textarea {
-          min-height: 100px;
-          width: 80%; }
-        body #container .column .tasks .hide_title {
-          width: 80%; }
-        body #container .column .tasks .taskTitle {
+@media only screen and (max-width: 2000px) {
+  body {
+    padding: 0px;
+    margin: 0px; }
+    body #container {
+      width: 80%;
+      margin: auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: space-around;
+      border: 3px solid #0079BF;
+      border-radius: 10px;
+      background: #0079BF; }
+      body #container .column {
+        width: 28%;
+        min-height: 250px;
+        border: 2px solid #0079BF;
+        margin: 50px auto;
+        padding: 5px;
+        border-radius: 10px;
+        background: #E9E9EB; }
+        body #container .column .icon {
+          padding: 0px 10px; }
+        body #container .column .icon_border_left {
+          border-left: 1px solid #333333; }
+        body #container .column .title_column {
+          text-align: center;
+          cursor: pointer;
+          font-weight: bold;
+          font-size: 1.2em; }
+        body #container .column input {
+          width: 90%; }
+        body #container .column .tasks {
+          width: 90%;
+          min-height: 50px;
+          margin: 5px auto;
+          border: 1px solid #E9E9EB;
+          border-radius: 20px;
+          padding: 5px;
+          background: #FFFFFF; }
+          body #container .column .tasks .hide_title {
+            width: 90%; }
+          body #container .column .tasks .taskTitle {
+            font-family: 'Lato', sans-serif;
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            font-size: 1em; }
+          body #container .column .tasks .taskDescription {
+            font-family: 'Roboto', sans-serif;
+            color: lightslategray; }
+          body #container .column .tasks .empty_task {
+            margin: 0 39px; }
+        body #container .column textarea {
+          width: 100%;
+          height: 50px; }
+      body #container #add_column {
+        align-self: flex-end; }
+      body #container #top {
+        border-bottom: 1px solid #0079BF;
+        padding: 15px 150px; }
+      body #container .none {
+        display: none; }
+      body #container .zoom {
+        position: absolute;
+        background-color: #7FCBFE;
+        padding: 20px;
+        left: 15%;
+        width: 70%;
+        height: 250px;
+        border-radius: 20px; }
+        body #container .zoom .taskTitle {
           font-family: 'Lato', sans-serif;
           display: flex;
-          justify-content: space-between; }
-        body #container .column .tasks .taskDescription {
+          justify-content: space-between;
+          font-weight: bold;
+          font-size: 1em; }
+        body #container .zoom .taskDescription {
           font-family: 'Roboto', sans-serif;
           color: lightslategray; }
-        body #container .column .tasks .empty_task {
-          margin: 0 39%; }
-    body #container #add_column {
-      align-self: flex-end; }
-  body header {
-    width: 100%;
-    padding: 5px;
-    background: #0079BF;
-    padding: 15px 150px; }
-    body header a {
-      padding-left: 5px;
-      text-decoration: none;
-      color: #000000;
-      font-family: 'Pacifico', cursive;
-      font-size: 1.3em; }
-  body #top {
-    border-bottom: 1px solid #0079BF;
-    padding: 15px 150px; }
-
-.none {
-  display: none; }
-
-.zoom {
-  position: absolute;
-  background-color: #7FCBFE;
-  padding: 20px;
-  left: 15%;
-  width: 70%;
-  height: 250px;
-  border-radius: 20px; }
+    body header {
+      width: 100%;
+      padding: 5px;
+      background: #0079BF;
+      text-align: center; }
+      body header a {
+        padding-left: 5px;
+        text-decoration: none;
+        color: #FFFFFF;
+        font-family: 'Pacifico', cursive;
+        font-size: 1.3em; } }
+@media only screen and (max-width: 960px) {
+  body #container .column {
+    width: 40%;
+    margin: 5px auto;
+    min-height: 50px;
+    background: #CCCCCC; }
+    body #container .column .tasks {
+      background: #FFFFFF; }
+  body #container .zoom {
+    padding: 20px;
+    left: 7%;
+    width: 80%;
+    height: 150px;
+    border-radius: 20px; }
+    body #container .zoom .taskDescription {
+      color: #222222; } }
+@media only screen and (max-width: 640px) {
+  body #container .column {
+    width: 90%;
+    margin: 5px auto;
+    min-height: 50px;
+    background: #CCCCCC; }
+  body #container .zoom {
+    padding: 20px;
+    left: 7%;
+    width: 80%;
+    height: 150px;
+    border-radius: 20px; }
+    body #container .zoom .taskDescription {
+      color: #222222; } }
 
 /*# sourceMappingURL=style.css.map */
