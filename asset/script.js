@@ -5,8 +5,8 @@ window.onload =  function(){
 // this function add a new column
     function addColumn(){
         columnArea.innerHTML += '<div class="column">' +
-            '<span class="title_column">Title</span>' +
-            '<input class="none" type="text" name="title"/><input class="none" type="submit"/>' +
+            '<span class="title_column">Cliquez ici pour changer le titre !</span>' +
+            '<input class="none" type="text" name="title" value="Titre de la colonne"/><input class="none" type="submit"/>' +
             '<a class="addTask"><img class="icon" src="../asset/img/add_task.png"/></a>' +
             '<a class="deleteColumn"><img class="icon icon_border_left" src="../asset/img/remove_task.png"/></a>' +
             '</div>';
@@ -31,7 +31,8 @@ window.onload =  function(){
             '<div class="taskDescription none">Description</div>' +
             '<textarea cols="100" rows="10" class="textarea none" placeholder="Description..."></textarea>' +
             '<input class="none" value="Valider" type="submit"/>'+
-            '<img src="../asset/img/delete_task.png" class="deleteTask" />';
+            '<img src="../asset/img/delete_task.png" class="deleteTask" />'+
+            '<span class="none">Titre de la colonne</span>';
 
 
         taskTitle = document.querySelectorAll('.taskTitle');
@@ -54,6 +55,8 @@ window.onload =  function(){
         currentTask.childNodes[4].classList.add('none');
         currentTask.childNodes[7].classList.remove('none');
         currentTask.childNodes[10].classList.add('none');
+        currentTask.childNodes[11].classList.remove('none');
+        currentTask.childNodes[11].innerHTML = currentTask.parentElement.childNodes[1].value;
 
     }
 
@@ -64,6 +67,7 @@ window.onload =  function(){
         currentTask.childNodes[4].classList.remove('none');
         currentTask.childNodes[7].classList.add('none');
         currentTask.childNodes[10].classList.remove('none');
+        currentTask.childNodes[11].classList.add('none');
     }
 
     function deleteTask(currentTask){
