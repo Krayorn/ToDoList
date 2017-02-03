@@ -36,7 +36,7 @@ window.onload =  function(){
                     '<a href="#" class="empty_task none icon"><img  src="../asset/img/edit.png"/></a>' +
                     '<a href="#" class="icon  deleteTask"><img src="../asset/img/remove_task.png"/></a>'+
                 '</div>' +
-                '<span class="none toVerif">Titre de la colonne</span>' +
+                '<span class="title_column none">Titre de la colonne</span>' +
                 '<div class="taskDescription none">Description</div>' +
                 '<textarea cols="100" rows="10" class="textarea none" placeholder="Description..."></textarea>' +
                 '<input class="none" value="Valider" type="submit"/>'+
@@ -68,6 +68,9 @@ window.onload =  function(){
         currentTask.parentNode.childNodes[2].classList.remove('none');
 
         //currentTask.parentNode.childNodes[2].innerHTML = 'slt';
+
+        currentTask.parentNode.childNodes[1].innerHTML = currentTask.parentNode.parentNode.parentNode.childNodes[1].value;
+
         if(currentTask.parentNode.childNodes[2].innerHTML == '' ||
             currentTask.parentNode.childNodes[2].innerHTML == 'Description'){
             currentTask.childNodes[2].classList.remove('none');
