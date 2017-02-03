@@ -3,6 +3,29 @@ window.onload =  function(){
     var addColumnButton = document.querySelector('#add_column');
     var compteurColumn = 0;
     var arraycolumn = [];
+    var columns = JSON.parse(localStorage.getItem("columns"));
+    
+    function saved_column(){
+        for(i = 0; i < columns.length;i++){
+                columnArea.innerHTML += '<div class="column">' +
+                '<span class="title_column">'+ columns[i].title +'</span>' +
+                '<input class="none input_text" type="text" name="title" value="'+ columns[i].title +'"/>' +
+                '<input class="none" type="submit"/>' +
+                '<div class="all_icons_column">' +
+                    '<a href="#" class="addTask icon"><img src="../asset/img/add_task.png"/></a>' +
+                    '<a href="#" class="deleteColumn icon"><img src="../asset/img/remove_column.png"/></a>' +
+                '</div>' +
+                '<input class="none" type="text" name="idColumn" value="'+compteurColumn+'">' +
+            '</div>' ;
+        }
+    }
+
+
+ if(columns){
+    saved_column();
+ }
+
+
 // this function add a new column
     function addColumn(){
         columnArea.innerHTML += '<div class="column">' +
