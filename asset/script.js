@@ -60,6 +60,10 @@ window.onload =  function(){
 
 // this function delete a column and all the task in the column
     function deleteColumn(currentDiv){
+        var compteur = currentDiv.parentNode.childNodes[4].value;
+        delete arraycolumn[compteur];
+        arraycolumn = arraycolumn.filter(function(n){ return n != undefined }); 
+        localStorage.setItem("columns", JSON.stringify(arraycolumn));
         columnArea.removeChild(currentDiv.parentNode);
     }
 
@@ -108,6 +112,7 @@ window.onload =  function(){
     }
 
     function deleteTask(currentTask){
+
         currentTask.parentElement.parentNode.remove();
     }
 
