@@ -1,12 +1,14 @@
 window.onload =  function(){
     var columnArea = document.querySelector('#container');
     var addColumnButton = document.querySelector('#add_column');
-    var compteurColumn = 0;
     var arraycolumn = [];
+    localStorage.setItem("compteur", "0");
+    var compteurColumns = localStorage.getItem("compteur");
     var columns = JSON.parse(localStorage.getItem("columns"));
     
     function saved_column(){
         for(i = 0; i < columns.length;i++){
+                j = i+1;
                 columnArea.innerHTML += '<div class="column">' +
                 '<span class="title_column">'+ columns[i].title +'</span>' +
                 '<input class="none input_text" type="text" name="title" value="'+ columns[i].title +'"/>' +
@@ -15,8 +17,14 @@ window.onload =  function(){
                     '<a href="#" class="addTask icon"><img src="../asset/img/add_task.png"/></a>' +
                     '<a href="#" class="deleteColumn icon"><img src="../asset/img/remove_column.png"/></a>' +
                 '</div>' +
-                '<input class="none" type="text" name="idColumn" value="'+compteurColumn+'">' +
+                '<input class="none" type="text" name="idColumn" value="'+j+'">' +
             '</div>' ;
+            compteurColumns++;
+            localStorage.setItem("compteur", compteurColumns);
+            addPostitButton = document.querySelectorAll('.addTask');
+            deleteColumnButton = document.querySelectorAll('.deleteColumn');
+            columntitle = document.querySelectorAll('.title_column');
+            refresh_for_column();
         }
     }
 
@@ -28,6 +36,7 @@ window.onload =  function(){
 
 // this function add a new column
     function addColumn(){
+        compteurColumns++;
         columnArea.innerHTML += '<div class="column">' +
                 '<span class="title_column">Cliquez ici pour changer le titre !</span>' +
                 '<input class="none input_text" type="text" name="title" value="Titre de la colonne"/>' +
@@ -36,16 +45,16 @@ window.onload =  function(){
                     '<a href="#" class="addTask icon"><img src="../asset/img/add_task.png"/></a>' +
                     '<a href="#" class="deleteColumn icon"><img src="../asset/img/remove_column.png"/></a>' +
                 '</div>' +
-                '<input class="none" type="text" name="idColumn" value="'+compteurColumn+'">' +
+                '<input class="none" type="text" name="idColumn" value="'+compteurColumns+'">' +
             '</div>' ;
         addPostitButton = document.querySelectorAll('.addTask');
         deleteColumnButton = document.querySelectorAll('.deleteColumn');
         columntitle = document.querySelectorAll('.title_column');
         refresh_for_column();
-        var array = {id:compteurColumn, title:"Titre de la colonne"};
+        localStorage.setItem("compteur", compteurColumns);
+        var array = {id:compteurColumns, title:"Titre de la colonne"};
         arraycolumn.push(array);
         localStorage.setItem("columns", JSON.stringify(arraycolumn));
-        compteurColumn ++;
     }
 
 // this function add a new task in the right column
@@ -87,6 +96,8 @@ window.onload =  function(){
         delete arraycolumn[compteur];
         arraycolumn = arraycolumn.filter(function(n){ return n != undefined }); 
         localStorage.setItem("columns", JSON.stringify(arraycolumn));
+        compteurColumns--;
+        localStorage.setItem("compteur", compteurColumns);
         columnArea.removeChild(currentDiv.parentNode);
     }
 
@@ -182,6 +193,7 @@ window.onload =  function(){
 // this function change the title of a column
     function changetitle(currentDiv){
         var compteur = currentDiv.childNodes[4].value;
+        console.log(compteur);
         var myInput = currentDiv.childNodes[1];
         var myButton = currentDiv.childNodes[2];
         myInput.classList.remove('none');
@@ -194,6 +206,7 @@ window.onload =  function(){
             else{
                 currentDiv.childNodes[0].innerHTML = myInput.value;
                 var array = {id:compteur, title:myInput.value};
+                console.log(array);
             }
             arraycolumn.push(array);
             delete arraycolumn[compteur];
