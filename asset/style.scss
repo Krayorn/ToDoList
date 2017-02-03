@@ -174,7 +174,6 @@
 }
 @media only screen and (max-width:960px){
   body{
-
     #container{
       .column{
         width: 40%;
@@ -185,7 +184,6 @@
           background: #FFFFFF;
         }
       }
-
       .zoom {
         padding: 20px;
         left : 7%;
@@ -198,7 +196,6 @@
         }
       }
     }
-
   }
 }
 
@@ -212,10 +209,8 @@
         margin : 5px auto;
         min-height : 50px;
         background: #CCCCCC;
-
       }
-
-      .zoom {
+      .zoom{
         padding: 20px;
         left : 7%;
         width: 80%;
@@ -227,7 +222,6 @@
         }
       }
     }
-
   }
 }
 

@@ -7,7 +7,7 @@ window.onload =  function(){
     function addColumn(){
         columnArea.innerHTML += '<div class="column">' +
                 '<span class="title_column">Cliquez ici pour changer le titre !</span>' +
-                '<input class="none input_text" type="text" name="title" value="Titre de la colonne"/>' +
+                '<input onchange="sessionStorage.message=this.value" class="none input_text" type="text" name="title" value="Titre de la colonne"/>' +
                 '<input class="none" type="submit"/>' +
                 '<div class="all_icons_column">' +
                     '<a href="#" class="addTask icon"><img src="../asset/img/add_task.png"/></a>' +
@@ -25,6 +25,7 @@ window.onload =  function(){
         compteurColumn ++;
     }
 
+
 // this function add a new task in the right column
     function addTask(currentDiv){
         var parent = currentDiv.parentNode;
@@ -32,7 +33,7 @@ window.onload =  function(){
         d.classList.add("tasks");
         parent.appendChild(d);
         d.innerHTML +=  '<div class="taskTitle">Titre de la tâche</div>' +
-            '<input class="hide_title none" placeholder="Titre" type="text"/>' +
+            '<input onchange="sessionStorage.message=this.value" class="hide_title none" placeholder="Titre" type="text"/>' +
             '<input class="none input_text" value="Valider" type="submit"/>' +
             '<div class="all_info_task">' +
                 '<div class="all_icons_task">' +
@@ -44,7 +45,7 @@ window.onload =  function(){
                 '</div>' +
                 '<span class="title_column none">Titre de la colonne</span>' +
                 '<div class="taskDescription none">Description</div>' +
-                '<textarea cols="100" rows="10" class="textarea none" placeholder="Description..."></textarea>' +
+                '<textarea onchange="sessionStorage.message=this.value" cols="100" rows="10" class="textarea none" placeholder="Description..."></textarea>' +
                 '<input class="none" value="Valider" type="submit"/>'+
             '</div>';
 
