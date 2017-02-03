@@ -5,10 +5,13 @@ window.onload =  function(){
 // this function add a new column
     function addColumn(){
         columnArea.innerHTML += '<div class="column">' +
-            '<span class="title_column">Cliquez ici pour changer le titre !</span>' +
-            '<input class="none" type="text" name="title" value="Titre de la colonne"/><input class="none" type="submit"/>' +
-            '<a class="addTask"><img class="icon" src="../asset/img/add_task.png"/></a>' +
-            '<a class="deleteColumn"><img class="icon icon_border_left" src="../asset/img/remove_task.png"/></a>' +
+                '<span class="title_column">Cliquez ici pour changer le titre !</span>' +
+                '<input class="none input_text" type="text" name="title" value="Titre de la colonne"/>' +
+                '<input class="none" type="submit"/>' +
+                '<div class="all_icons_column">' +
+                    '<a href="#" class="addTask icon"><img src="../asset/img/add_task.png"/></a>' +
+                    '<a href="#" class="deleteColumn icon"><img src="../asset/img/remove_column.png"/></a>' +
+                '</div>' +
             '</div>';
         addPostitButton = document.querySelectorAll('.addTask');
         deleteColumnButton = document.querySelectorAll('.deleteColumn');
@@ -18,21 +21,27 @@ window.onload =  function(){
 
 // this function add a new task in the right column
     function addTask(currentDiv){
+        var parent = currentDiv.parentNode;
         var d=document.createElement("div");
         d.classList.add("tasks");
-        currentDiv.appendChild(d);
+        parent.appendChild(d);
         d.innerHTML +=  '<div class="taskTitle">Titre de la tâche</div>' +
             '<input class="hide_title none" placeholder="Titre" type="text"/>' +
-            '<input class="none" value="Valider" type="submit"/>' +
-            '<img src="../asset/img/dezoom.png" class=" dezoomButton none" />' +
-            '<img src="../asset/img/zoom.png" class="zoomButton" />' +
-            '<img class="empty_task" src="../asset/img/empty.png"/>' +
-            '<img class="empty_task none" src="../asset/img/edit.png"/>' +
-            '<div class="taskDescription none">Description</div>' +
-            '<textarea cols="100" rows="10" class="textarea none" placeholder="Description..."></textarea>' +
-            '<input class="none" value="Valider" type="submit"/>'+
-            '<img src="../asset/img/delete_task.png" class="deleteTask" />'+
-            '<span class="none">Titre de la colonne</span>';
+            '<input class="none input_text" value="Valider" type="submit"/>' +
+            '<div class="all_info_task">' +
+                '<div class="all_icons_task">' +
+                    '<a href="#"  class="icon dezoomButton none"> <img src="../asset/img/dezoom.png"/></a>' +
+                    '<a href="#" class="icon zoomButton"><img src="../asset/img/zoom.png"/></a>' +
+                    '<a href="#" class="empty_task icon" ><img  src="../asset/img/empty.png"/></a>' +
+                    '<a href="#" class="empty_task none icon"><img  src="../asset/img/edit.png"/></a>' +
+                    '<a href="#" class="icon  deleteTask"><img src="../asset/img/remove_task.png"/></a>'+
+                '</div>' +
+                '<span class="none toVerif">Titre de la colonne</span>' +
+                '<div class="taskDescription none">Description</div>' +
+                '<textarea cols="100" rows="10" class="textarea none" placeholder="Description..."></textarea>' +
+                '<input class="none" value="Valider" type="submit"/>'+
+            '</div>';
+
 
 
         taskTitle = document.querySelectorAll('.taskTitle');
@@ -45,33 +54,52 @@ window.onload =  function(){
 
 // this function delete a column and all the task in the column
     function deleteColumn(currentDiv){
-        columnArea.removeChild(currentDiv);
+        columnArea.removeChild(currentDiv.parentNode);
     }
 
     function zoomTasks(currentTask){
-        currentTask.classList.add('zoom');
+        currentTask.parentNode.classList.add('zoom');
         currentTask.classList.remove('tasks');
-        currentTask.childNodes[3].classList.remove('none');
-        currentTask.childNodes[4].classList.add('none');
-        currentTask.childNodes[7].classList.remove('none');
-        currentTask.childNodes[10].classList.add('none');
-        currentTask.childNodes[11].classList.remove('none');
-        currentTask.childNodes[11].innerHTML = currentTask.parentElement.childNodes[1].value;
+        currentTask.childNodes[1].classList.add('none');
+        currentTask.childNodes[3].classList.add('none');
+        currentTask.childNodes[0].classList.remove('none');
+        currentTask.childNodes[2].classList.remove('none');
+        currentTask.parentNode.childNodes[1].classList.remove('none');
+        currentTask.parentNode.childNodes[2].classList.remove('none');
+
+        //currentTask.parentNode.childNodes[2].innerHTML = 'slt';
+        if(currentTask.parentNode.childNodes[2].innerHTML == '' ||
+            currentTask.parentNode.childNodes[2].innerHTML == 'Description'){
+            currentTask.childNodes[2].classList.remove('none');
+            currentTask.childNodes[3].classList.add('none');
+        }else{
+            currentTask.childNodes[3].classList.remove('none');
+            currentTask.childNodes[2].classList.add('none');
+        }
 
     }
 
     function dezoomTask(currentTask){
-        currentTask.classList.remove('zoom');
-        currentTask.classList.add('tasks');
-        currentTask.childNodes[3].classList.add('none');
+        currentTask.parentNode.classList.remove('zoom');
+        currentTask.childNodes[0].classList.add('none');
+        currentTask.childNodes[1].classList.remove('none');
+        currentTask.childNodes[2].classList.remove('none');
         currentTask.childNodes[4].classList.remove('none');
-        currentTask.childNodes[7].classList.add('none');
-        currentTask.childNodes[10].classList.remove('none');
-        currentTask.childNodes[11].classList.add('none');
+        currentTask.parentNode.childNodes[1].classList.add('none');
+        //currentTask.parentNode.childNodes[2].classList.add('none');
+
+        if(currentTask.parentNode.childNodes[2].innerHTML == 'Description'){
+            currentTask.childNodes[2].classList.remove('none');
+            currentTask.childNodes[3].classList.add('none');
+        }else{
+            currentTask.childNodes[3].classList.remove('none');
+            currentTask.childNodes[2].classList.add('none');
+        }
+        currentTask.parentNode.childNodes[2].classList.add('none');
     }
 
     function deleteTask(currentTask){
-        currentTask.parentElement.removeChild(currentTask);
+        currentTask.parentElement.parentNode.remove();
     }
 
 // this function change the title of a task
@@ -93,21 +121,21 @@ window.onload =  function(){
     }
 
     function changeDescriptionTask(currentTask){
-        var descriptionTask = currentTask.childNodes[7];
-        var textarea = currentTask.childNodes[8];
-        var descriptionTaskButton = currentTask.childNodes[9];
+        var descriptionTask = currentTask.childNodes[2];
+        var textarea = currentTask.childNodes[3];
+        var descriptionTaskButton = currentTask.childNodes[4];
         textarea.classList.remove('none');
         descriptionTaskButton.classList.remove('none');
         descriptionTaskButton.onclick = function(){
             if(textarea.value == ""){
                 descriptionTask.innerHTML = "Description";
-                currentTask.childNodes[5].classList.remove('none');;
-                currentTask.childNodes[6].classList.add('none');;
+                currentTask.childNodes[4].classList.remove('none');
+                currentTask.childNodes[3].classList.add('none');
             }
             else{
                 descriptionTask.innerHTML = textarea.value;
-                currentTask.childNodes[6].classList.remove('none');;
-                currentTask.childNodes[5].classList.add('none');;
+                currentTask.childNodes[3].classList.remove('none');
+                currentTask.childNodes[4].classList.add('none');
             }
             textarea.classList.add('none');
             descriptionTaskButton.classList.add('none');

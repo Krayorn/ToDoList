@@ -21,92 +21,135 @@
         padding: 5px;
         border-radius: 10px;
         background: #E9E9EB;
+        display: flex;
+        flex-direction: column;
 
-        .icon {
-          padding: 0px 10px;
+        .all_icons_column {
+          padding: 5px;
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+
+          .icon {
+            padding: 5px 0;
+            cursor: pointer;
+            width: 10%;
+            text-align: center;
+          }
+
         }
-        .icon_border_left {
-          border-left: 1px solid #333333;
-        }
+
         .title_column {
           text-align: center;
           cursor: pointer;
           font-weight: bold;
-          font-size: 1.2em;
+          font-size: 1em;
+          border-bottom: 1px solid #0079BF;
+          width: 100%;
+          height: 30px;
         }
-        input{
-          width: 90%;
+        input {
+          width: 100%;
+        }
+        .input_text {
+          width: 95%;
         }
         .tasks {
           width: 90%;
-          min-height: 50px;
           margin: 5px auto;
-          border: 1px solid #E9E9EB;
-          border-radius: 20px;
+          border: 2px solid #0079BF;
           padding: 5px;
-          background: #FFFFFF;
+          min-height: 20px;
+          border-radius: 10px;
+          background: #F6F7F9;
+          display: flex;
+          flex-direction: column;
 
+
+          .all_info_task {
+            .all_icons_task {
+              padding: 5px;
+              display: flex;
+              flex-direction: row;
+              justify-content: space-between;
+
+              .icon {
+                padding: 5px 0;
+                cursor: pointer;
+                width: 10%;
+                text-align: center;
+              }
+            }
+            .toVerif{
+              display: none;
+            }
+          }
+
+          .taskTitle {
+            text-align: center;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1em;
+            border-bottom: 1px solid #0079BF;
+            width: 100%;
+            height: 30px;
+          }
 
           .hide_title {
             width: 90%;
           }
-          .taskTitle {
-            font-family: 'Lato', sans-serif;
-            display: flex;
-            justify-content: space-between;
-            font-weight: bold;
-            font-size: 1em;
 
-          }
           .taskDescription {
             font-family: 'Roboto', sans-serif;
             color: lightslategray;
           }
 
-          .empty_task {
-            margin: 0 39px;
+          textarea {
+            width: 100%;
+            height: 50px;
+          }
+
+          .zoom {
+            position: absolute;
+            //background-color: #7FCBFE;
+            background-color: #FFFFFF;
+            padding: 20px;
+            left: 15%;
+            width: 70%;
+            height: 250px;
+            border-radius: 20px;
+            border: 1px solid black ;
+
+
+
+            .taskTitle {
+              font-family: 'Lato', sans-serif;
+              display: flex;
+              justify-content: space-between;
+              font-weight: bold;
+              font-size: 1em;
+              border: 1px solid black ;
+
+            }
+            .taskDescription {
+              font-family: 'Roboto', sans-serif;
+              color: lightslategray;
+            }
+
           }
 
         }
-        textarea {
-          width: 100%;
-          height: 50px;
+
+        #add_column {
+          align-self: flex-end;
         }
-
-      }
-
-      #add_column {
-        align-self: flex-end;
-      }
-      #top {
-        border-bottom: 1px solid #0079BF;
-        padding: 15px 150px;
-      }
-      .none {
-        display: none;
-      }
-      .zoom {
-        position: absolute;
-        background-color: #7FCBFE;
-        padding: 20px;
-        left: 15%;
-        width: 70%;
-        height: 250px;
-        border-radius: 20px;
-
-        .taskTitle {
-          font-family: 'Lato', sans-serif;
-          display: flex;
-          justify-content: space-between;
-          font-weight: bold;
-          font-size: 1em;
-
+        #top {
+          border-bottom: 1px solid #0079BF;
+          padding: 15px 150px;
         }
-        .taskDescription {
-          font-family: 'Roboto', sans-serif;
-          color: lightslategray;
+        .none {
+          display: none;
         }
-
 
       }
     }
