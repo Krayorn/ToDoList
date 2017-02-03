@@ -93,7 +93,12 @@ window.onload =  function(){
 // this function delete a column and all the task in the column
     function deleteColumn(currentDiv){
         var compteur = currentDiv.parentNode.childNodes[4].value;
-        delete arraycolumn[compteur];
+        for(i=0; i < arraycolumn.length; i++){
+            j = i+1
+            if(arraycolumn[i].id == j){
+                delete arraycolumn[i];
+            }
+        }
         arraycolumn = arraycolumn.filter(function(n){ return n != undefined }); 
         localStorage.setItem("columns", JSON.stringify(arraycolumn));
         compteurColumns--;
@@ -199,6 +204,11 @@ window.onload =  function(){
         myInput.classList.remove('none');
         myButton.classList.remove('none');
         myButton.onclick = function(){
+             for(i=0; i < arraycolumn.length; i++){
+                if(arraycolumn[i].id == compteur){
+                    delete arraycolumn[i];
+                }
+            }
             if (myInput.value.length == 0){
                 currentDiv.childNodes[0].innerHTML = 'Title';
                 var array = {id:compteur, title:"Title"};
@@ -206,10 +216,8 @@ window.onload =  function(){
             else{
                 currentDiv.childNodes[0].innerHTML = myInput.value;
                 var array = {id:compteur, title:myInput.value};
-                console.log(array);
             }
             arraycolumn.push(array);
-            delete arraycolumn[compteur];
             arraycolumn = arraycolumn.filter(function(n){ return n != undefined }); 
             localStorage.setItem("columns", JSON.stringify(arraycolumn));
             myInput.classList.add('none');
