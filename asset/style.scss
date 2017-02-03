@@ -2,6 +2,7 @@
   body {
     padding: 0px;
     margin: 0px;
+
     #container {
       width: 80%;
       margin: auto;
@@ -46,7 +47,7 @@
           font-size: 1em;
           border-bottom: 1px solid #0079BF;
           width: 100%;
-          height: 30px;
+          min-height: 30px;
         }
         input {
           width: 100%;
@@ -139,14 +140,6 @@
           }
 
         }
-
-        #add_column {
-          align-self: flex-end;
-        }
-        #top {
-          border-bottom: 1px solid #0079BF;
-          padding: 15px 150px;
-        }
         .none {
           display: none;
         }
@@ -156,18 +149,24 @@
 
     header {
       width: 100%;
-      padding: 5px;
+      height: 50px;
       background: #0079BF;
       text-align: center;
 
       a {
-        padding-left: 5px;
         text-decoration: none;
         color: #FFFFFF;
         font-family: 'Pacifico', cursive;
         font-size: 1.3em;
       }
 
+    }
+
+    #top{
+      height: 50px;
+      text-align: center;
+      padding-top: 25px;
+      width: 100%;
     }
 
 

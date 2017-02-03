@@ -39,7 +39,7 @@
           font-size: 1em;
           border-bottom: 1px solid #0079BF;
           width: 100%;
-          height: 30px; }
+          min-height: 30px; }
         body #container .column input {
           width: 100%; }
         body #container .column .input_text {
@@ -101,24 +101,23 @@
             body #container .column .tasks .zoom .taskDescription {
               font-family: 'Roboto', sans-serif;
               color: lightslategray; }
-        body #container .column #add_column {
-          align-self: flex-end; }
-        body #container .column #top {
-          border-bottom: 1px solid #0079BF;
-          padding: 15px 150px; }
         body #container .column .none {
           display: none; }
     body header {
       width: 100%;
-      padding: 5px;
+      height: 50px;
       background: #0079BF;
       text-align: center; }
       body header a {
-        padding-left: 5px;
         text-decoration: none;
         color: #FFFFFF;
         font-family: 'Pacifico', cursive;
-        font-size: 1.3em; } }
+        font-size: 1.3em; }
+    body #top {
+      height: 50px;
+      text-align: center;
+      padding-top: 25px;
+      width: 100%; } }
 @media only screen and (max-width: 960px) {
   body #container .column {
     width: 40%;
