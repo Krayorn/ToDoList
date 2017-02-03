@@ -94,8 +94,7 @@ window.onload =  function(){
     function deleteColumn(currentDiv){
         var compteur = currentDiv.parentNode.childNodes[4].value;
         for(i=0; i < arraycolumn.length; i++){
-            j = i+1
-            if(arraycolumn[i].id == j){
+            if(arraycolumn[i].id == compteur){
                 delete arraycolumn[i];
             }
         }
