@@ -169,6 +169,7 @@ window.onload =  function(){
             }
             arraycolumn.push(array);
             delete arraycolumn[compteur];
+            arraycolumn = arraycolumn.filter(function(n){ return n != undefined }); 
             localStorage.setItem("columns", JSON.stringify(arraycolumn));
             myInput.classList.add('none');
             myButton.classList.add('none');
