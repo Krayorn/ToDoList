@@ -3,12 +3,12 @@ window.onload =  function(){
     var addColumnButton = document.querySelector('#add_column');
     var arraycolumn = [];
     localStorage.setItem("compteur", "0");
-    var compteurColumns = localStorage.getItem("compteur");
+    var compteurColumns = 0
     var columns = JSON.parse(localStorage.getItem("columns"));
     
     function saved_column(){
         for(i = 0; i < columns.length;i++){
-                j = i+1;
+                compteurColumns++;
                 columnArea.innerHTML += '<div class="column">' +
                 '<span class="title_column">'+ columns[i].title +'</span>' +
                 '<input class="none input_text" type="text" name="title" value="'+ columns[i].title +'"/>' +
@@ -17,13 +17,15 @@ window.onload =  function(){
                     '<a href="#" class="addTask icon"><img src="../asset/img/add_task.png"/></a>' +
                     '<a href="#" class="deleteColumn icon"><img src="../asset/img/remove_column.png"/></a>' +
                 '</div>' +
-                '<input class="none" type="text" name="idColumn" value="'+j+'">' +
+                '<input class="none" type="text" name="idColumn" value="'+compteurColumns+'">' +
             '</div>' ;
-            compteurColumns++;
             localStorage.setItem("compteur", compteurColumns);
             addPostitButton = document.querySelectorAll('.addTask');
             deleteColumnButton = document.querySelectorAll('.deleteColumn');
             columntitle = document.querySelectorAll('.title_column');
+            var array = {id:compteurColumns, title:columns[i].title};
+            arraycolumn.push(array);
+            localStorage.setItem("columns", JSON.stringify(arraycolumn));
             refresh_for_column();
         }
     }
