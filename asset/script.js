@@ -2,9 +2,11 @@ window.onload =  function(){
     var columnArea = document.querySelector('#container');
     var addColumnButton = document.querySelector('#add_column');
     var arraycolumn = [];
+    var arraytasks = [];
     localStorage.setItem("compteur", "0");
-    var compteurColumns = 0
+    var compteurColumns = 0;
     var columns = JSON.parse(localStorage.getItem("columns"));
+    var tasks = JSON.parse(localStorage.getItem("tasks"));
     
     function saved_column(){
         for(i = 0; i < columns.length;i++){
@@ -19,6 +21,40 @@ window.onload =  function(){
                 '</div>' +
                 '<input class="none" type="text" name="idColumn" value="'+compteurColumns+'">' +
             '</div>' ;
+            if(tasks){
+                for (j = 0; j < tasks.length; j++){
+                    if ( tasks[j].id == columns[i].id){
+                        columnArea.childNodes[i+1].innerHTML +=  '<div class="tasks">'+
+                                                    '<div class="taskTitle">Titre de la tâche</div>' +
+                                                    '<input class="hide_title none" placeholder="Titre" type="text"/>' +
+                                                    '<input class="none input_text" value="Valider" type="submit"/>' +
+                                                    '<div class="all_info_task">' +
+                                                        '<div class="all_icons_task">' +
+                                                            '<a href="#"  class="icon dezoomButton none"> <img src="../asset/img/dezoom.png"/></a>' +
+                                                            '<a href="#" class="icon zoomButton"><img src="../asset/img/zoom.png"/></a>' +
+                                                            '<a href="#" class="empty_task icon" ><img  src="../asset/img/empty.png"/></a>' +
+                                                            '<a href="#" class="empty_task none icon"><img  src="../asset/img/edit.png"/></a>' +
+                                                            '<a href="#" class="icon  deleteTask"><img src="../asset/img/remove_task.png"/></a>'+
+                                                        '</div>' +
+                                                        '<span class="title_column none">Titre de la colonne</span>' +
+                                                        '<div class="taskDescription none">Description</div>' +
+                                                        '<textarea cols="100" rows="10" class="textarea none" placeholder="Description..."></textarea>' +
+                                                        '<input class="none" value="Valider" type="submit"/>'+
+                                                    '</div>' +
+                                                    '</div>';
+
+                        taskTitle = document.querySelectorAll('.taskTitle');
+                        zoomButton = document.querySelectorAll('.zoomButton');
+                        dezoomButton = document.querySelectorAll('.dezoomButton');
+                        deleteTasks = document.querySelectorAll('.deleteTask');
+                        tasksDescription = document.querySelectorAll('.taskDescription');
+                        var array = {id:compteurColumns, title:tasks[j].title, description:tasks[j].description};
+                        arraytasks.push(array);
+                        localStorage.setItem("tasks", JSON.stringify(arraytasks));
+                        refresh_for_tasks();
+                    }
+                }
+            }
             localStorage.setItem("compteur", compteurColumns);
             addPostitButton = document.querySelectorAll('.addTask');
             deleteColumnButton = document.querySelectorAll('.deleteColumn');
@@ -26,7 +62,7 @@ window.onload =  function(){
             var array = {id:compteurColumns, title:columns[i].title};
             arraycolumn.push(array);
             localStorage.setItem("columns", JSON.stringify(arraycolumn));
-            refresh_for_column();
+            refresh_for_column(); 
         }
     }
 
@@ -82,14 +118,15 @@ window.onload =  function(){
                 '<input class="none" value="Valider" type="submit"/>'+
             '</div>';
 
-
-
         taskTitle = document.querySelectorAll('.taskTitle');
         zoomButton = document.querySelectorAll('.zoomButton');
         dezoomButton = document.querySelectorAll('.dezoomButton');
         deleteTasks = document.querySelectorAll('.deleteTask');
         tasksDescription = document.querySelectorAll('.taskDescription');
         refresh_for_tasks();
+        var array = {id:parent.childNodes[4].value, title:"Titre de la tâche", description:"Description"};
+        arraytasks.push(array);
+        localStorage.setItem("tasks", JSON.stringify(arraytasks));
     }
 
 // this function delete a column and all the task in the column
@@ -116,9 +153,6 @@ window.onload =  function(){
         currentTask.childNodes[2].classList.remove('none');
         currentTask.parentNode.childNodes[1].classList.remove('none');
         currentTask.parentNode.childNodes[2].classList.remove('none');
-
-        //currentTask.parentNode.childNodes[2].innerHTML = 'slt';
-
         currentTask.parentNode.childNodes[1].innerHTML = currentTask.parentNode.parentNode.parentNode.childNodes[1].value;
 
         if(currentTask.parentNode.childNodes[2].innerHTML == '' ||
@@ -139,7 +173,6 @@ window.onload =  function(){
         currentTask.childNodes[2].classList.remove('none');
         currentTask.childNodes[4].classList.remove('none');
         currentTask.parentNode.childNodes[1].classList.add('none');
-        //currentTask.parentNode.childNodes[2].classList.add('none');
 
         if(currentTask.parentNode.childNodes[2].innerHTML == 'Description'){
             currentTask.childNodes[2].classList.remove('none');
@@ -152,7 +185,20 @@ window.onload =  function(){
     }
 
     function deleteTask(currentTask){
-
+        console.log(arraytasks);
+        var currentColumnId = currentTask.parentElement.parentElement.parentElement.childNodes[4].value;
+        var currentTaskTitle = currentTask.parentElement.parentElement.childNodes[0].innerText;
+        var currentTaskDescription = currentTask.parentElement.childNodes[2].innerText;
+        console.log(currentColumnId, currentTaskTitle, currentTaskDescription);
+        for(i=0; i < arraytasks.length; i++){
+            console.log(arraytasks[i].id, arraytasks[i].title, arraytasks[i].description);
+            if(arraytasks[i].id == currentColumnId && arraytasks[i].title == currentTaskTitle && arraytasks[i].description == currentTaskDescription){
+                delete arraytasks[i];
+                break;
+            }
+        }
+        arraytasks = arraytasks.filter(function(n){ return n != undefined }); 
+        localStorage.setItem("tasks", JSON.stringify(arraytasks));
         currentTask.parentElement.parentNode.remove();
     }
 
@@ -199,7 +245,6 @@ window.onload =  function(){
 // this function change the title of a column
     function changetitle(currentDiv){
         var compteur = currentDiv.childNodes[4].value;
-        console.log(compteur);
         var myInput = currentDiv.childNodes[1];
         var myButton = currentDiv.childNodes[2];
         myInput.classList.remove('none');
