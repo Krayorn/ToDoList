@@ -5,11 +5,64 @@ window.onload =  function(){
     localStorage.setItem("compteur", "0");
     var compteurColumns = 0
     var columns = JSON.parse(localStorage.getItem("columns"));
-    
+
+    var dndHandler = {
+
+        draggedElement: null, // Propriété pointant vers l'élément en cours de déplacement
+
+        applyDragEvents: function(element) {
+
+            element.draggable = true;
+
+            var dndHandler = this; // Cette variable est nécessaire pour que l'événement « dragstart » ci-dessous accède facilement au namespace « dndHandler »
+
+            element.addEventListener('dragstart', function(e) {
+                dndHandler.draggedElement = e.target; // On sauvegarde l'élément en cours de déplacement
+                e.dataTransfer.setData('text/plain', ''); // Nécessaire pour Firefox
+            });
+            //refresh_for_tasks();
+        },
+
+        applyDropEvents: function(dropper) {
+
+            dropper.addEventListener('dragover', function(e) {
+                e.preventDefault(); // On autorise le drop d'éléments
+                this.className = 'dropper drop_hover'; // Et on applique le style adéquat à notre zone de drop quand un élément la survole
+            });
+
+            dropper.addEventListener('dragleave', function() {
+                this.className = 'dropper'; // On revient au style de base lorsque l'élément quitte la zone de drop
+            });
+
+            var dndHandler = this; // Cette variable est nécessaire pour que l'événement « drop » ci-dessous accède facilement au namespace « dndHandler »
+
+            dropper.addEventListener('drop', function(e) {
+
+                var target = e.target,
+                    draggedElement = dndHandler.draggedElement, // Récupération de l'élément concerné
+                    clonedElement = draggedElement.cloneNode(true); // On créé immédiatement le clone de cet élément
+
+                while (target.className.indexOf('dropper') == -1) { // Cette boucle permet de remonter jusqu'à la zone de drop parente
+                    target = target.parentNode;
+                }
+
+                target.className = 'dropper'; // Application du style par défaut
+
+                clonedElement = target.appendChild(clonedElement); // Ajout de l'élément cloné à la zone de drop actuelle
+                dndHandler.applyDragEvents(clonedElement); // Nouvelle application des événements qui ont été perdus lors du cloneNode()
+
+                draggedElement.parentNode.removeChild(draggedElement); // Suppression de l'élément d'origine
+
+            });
+            //refresh_for_tasks();
+        }
+
+    }
+
     function saved_column(){
         for(i = 0; i < columns.length;i++){
                 compteurColumns++;
-                columnArea.innerHTML += '<div class="column">' +
+                columnArea.innerHTML += '<div class="dropper">' +
                 '<span class="title_column">'+ columns[i].title +'</span>' +
                 '<input class="none input_text" type="text" name="title" value="'+ columns[i].title +'"/>' +
                 '<input class="none" type="submit"/>' +
@@ -39,7 +92,7 @@ window.onload =  function(){
 // this function add a new column
     function addColumn(){
         compteurColumns++;
-        columnArea.innerHTML += '<div class="column">' +
+        columnArea.innerHTML += '<div class="dropper">' +
                 '<span class="title_column">Cliquez ici pour changer le titre !</span>' +
                 '<input onchange="sessionStorage.message=this.value" class="none input_text" type="text" name="title" value="Titre de la colonne"/>' +
                 '<input class="none" type="submit"/>' +
@@ -64,7 +117,7 @@ window.onload =  function(){
     function addTask(currentDiv){
         var parent = currentDiv.parentNode;
         var d=document.createElement("div");
-        d.classList.add("tasks");
+        d.classList.add("draggable");
         parent.appendChild(d);
         d.innerHTML +=  '<div class="taskTitle">Titre de la tâche</div>' +
             '<input onchange="sessionStorage.message=this.value" class="hide_title none" placeholder="Titre" type="text"/>' +
@@ -110,7 +163,7 @@ window.onload =  function(){
 
     function zoomTasks(currentTask){
         currentTask.parentNode.classList.add('zoom');
-        currentTask.classList.remove('tasks');
+        currentTask.classList.remove('draggable');
         currentTask.childNodes[1].classList.add('none');
         currentTask.childNodes[3].classList.add('none');
         currentTask.childNodes[0].classList.remove('none');
@@ -248,6 +301,13 @@ window.onload =  function(){
                 changetitle(this.parentElement);
             }
         }
+        var droppers = document.querySelectorAll('.dropper');
+        var droppersLen = droppers.length;
+
+        for (var i = 0; i < droppersLen; i++) {
+            dndHandler.applyDropEvents(droppers[i]); // Application des événements nécessaires aux zones de drop
+        }
+        refresh_for_tasks();
     }
     function refresh_for_tasks(){
         for(var i = 0; i < taskTitle.length; i++){
@@ -274,6 +334,14 @@ window.onload =  function(){
             tasksDescription[i].onclick = function(){
                 changeDescriptionTask(this.parentElement);
             }
+        }
+        var elements = document.querySelectorAll('.draggable');
+        var elementsLen = elements.length;
+        console.log(elementsLen);
+
+        for (var i = 0; i < elementsLen; i++) {
+            console.log(elementsLen);
+            dndHandler.applyDragEvents(elements[i]); // Application des paramètres nécessaires aux éléments déplaçables
         }
     }
 };
