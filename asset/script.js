@@ -2,9 +2,11 @@ window.onload =  function(){
     var columnArea = document.querySelector('#container');
     var addColumnButton = document.querySelector('#add_column');
     var arraycolumn = [];
+    var arraytasks = [];
     localStorage.setItem("compteur", "0");
-    var compteurColumns = 0
+    var compteurColumns = 0;
     var columns = JSON.parse(localStorage.getItem("columns"));
+    var tasks = JSON.parse(localStorage.getItem("tasks"));
 
     var dndHandler = {
 
@@ -61,17 +63,51 @@ window.onload =  function(){
 
     function saved_column(){
         for(i = 0; i < columns.length;i++){
-                compteurColumns++;
-                columnArea.innerHTML += '<div class="dropper">' +
+            compteurColumns++;
+            columnArea.innerHTML += '<div class="dropper">' +
                 '<span class="title_column">'+ columns[i].title +'</span>' +
                 '<input class="none input_text" type="text" name="title" value="'+ columns[i].title +'"/>' +
                 '<input class="none" type="submit"/>' +
                 '<div class="all_icons_column">' +
-                    '<a href="#" class="addTask icon"><img src="../asset/img/add_task.png"/></a>' +
-                    '<a href="#" class="deleteColumn icon"><img src="../asset/img/remove_column.png"/></a>' +
+                '<a href="#" class="addTask icon"><img src="../asset/img/add_task.png"/></a>' +
+                '<a href="#" class="deleteColumn icon"><img src="../asset/img/remove_column.png"/></a>' +
                 '</div>' +
                 '<input class="none" type="text" name="idColumn" value="'+compteurColumns+'">' +
-            '</div>' ;
+                '</div>' ;
+            if(tasks){
+                for (j = 0; j < tasks.length; j++){
+                    if ( tasks[j].id == columns[i].id){
+                        columnArea.childNodes[i+1].innerHTML +=  '<div class="draggable">'+
+                            '<div class="taskTitle">' + tasks[j].title + '</div>' +
+                            '<input class="hide_title none" placeholder="Titre" type="text"/>' +
+                            '<input class="none input_text" value="Valider" type="submit"/>' +
+                            '<div class="all_info_task">' +
+                            '<div class="all_icons_task">' +
+                            '<a href="#"  class="icon dezoomButton none"> <img src="../asset/img/dezoom.png"/></a>' +
+                            '<a href="#" class="icon zoomButton"><img src="../asset/img/zoom.png"/></a>' +
+                            '<a href="#" class="empty_task icon" ><img  src="../asset/img/empty.png"/></a>' +
+                            '<a href="#" class="empty_task none icon"><img  src="../asset/img/edit.png"/></a>' +
+                            '<a href="#" class="icon  deleteTask"><img src="../asset/img/remove_task.png"/></a>'+
+                            '</div>' +
+                            '<span class="title_column none">Titre de la colonne</span>' +
+                            '<div class="taskDescription none">' + tasks[j].description + '</div>' +
+                            '<textarea cols="100" rows="10" class="textarea none" placeholder="Description..."></textarea>' +
+                            '<input class="none" value="Valider" type="submit"/>'+
+                            '</div>' +
+                            '</div>';
+
+                        taskTitle = document.querySelectorAll('.taskTitle');
+                        zoomButton = document.querySelectorAll('.zoomButton');
+                        dezoomButton = document.querySelectorAll('.dezoomButton');
+                        deleteTasks = document.querySelectorAll('.deleteTask');
+                        tasksDescription = document.querySelectorAll('.taskDescription');
+                        var array = {id:compteurColumns, title:tasks[j].title, description:tasks[j].description};
+                        arraytasks.push(array);
+                        localStorage.setItem("tasks", JSON.stringify(arraytasks));
+                        refresh_for_tasks();
+                    }
+                }
+            }
             localStorage.setItem("compteur", compteurColumns);
             addPostitButton = document.querySelectorAll('.addTask');
             deleteColumnButton = document.querySelectorAll('.deleteColumn');
@@ -87,7 +123,6 @@ window.onload =  function(){
  if(columns){
     saved_column();
  }
-
 
 // this function add a new column
     function addColumn(){
@@ -144,6 +179,9 @@ window.onload =  function(){
         deleteTasks = document.querySelectorAll('.deleteTask');
         tasksDescription = document.querySelectorAll('.taskDescription');
         refresh_for_tasks();
+        var array = {id:parent.childNodes[4].value, title:"Titre de la tâche", description:"Description"};
+        arraytasks.push(array);
+        localStorage.setItem("tasks", JSON.stringify(arraytasks));
     }
 
 // this function delete a column and all the task in the column
@@ -154,8 +192,15 @@ window.onload =  function(){
                 delete arraycolumn[i];
             }
         }
-        arraycolumn = arraycolumn.filter(function(n){ return n != undefined }); 
+        for (j=0; j < arraytasks.length; j++){
+            if(arraytasks[j].id == compteur){
+                delete arraytasks[j];
+            }
+        }
+        arraycolumn = arraycolumn.filter(function(n){ return n != undefined });
         localStorage.setItem("columns", JSON.stringify(arraycolumn));
+        arraytasks = arraytasks.filter(function(n){ return n != undefined });
+        localStorage.setItem("tasks", JSON.stringify(arraytasks));
         compteurColumns--;
         localStorage.setItem("compteur", compteurColumns);
         columnArea.removeChild(currentDiv.parentNode);
@@ -206,28 +251,51 @@ window.onload =  function(){
     }
 
     function deleteTask(currentTask){
-
+        var currentColumnId = currentTask.parentElement.parentElement.parentElement.childNodes[4].value;
+        var currentTaskTitle = currentTask.parentElement.parentElement.childNodes[0].innerText;
+        var currentTaskDescription = currentTask.parentElement.childNodes[2].innerText;
+        for(i=0; i < arraytasks.length; i++){
+            if(arraytasks[i].id == currentColumnId && arraytasks[i].title == currentTaskTitle && arraytasks[i].description == currentTaskDescription){
+                delete arraytasks[i];
+                break;
+            }
+        }
+        arraytasks = arraytasks.filter(function(n){ return n != undefined });
+        localStorage.setItem("tasks", JSON.stringify(arraytasks));
         currentTask.parentElement.parentNode.remove();
     }
-
-// this function change the title of a task
+    // this function change the title of a task
     function changeTitleTask(currentDiv){
         var titleTask = currentDiv.childNodes[1];
         var titleTaskButton = currentDiv.childNodes[2];
         titleTask.classList.remove('none');
         titleTaskButton.classList.remove('none');
         titleTaskButton.onclick = function(){
+            var currentColumnId = currentDiv.parentElement.childNodes[4].value;
+            var currentTaskDescription = currentDiv.childNodes[3].childNodes[2].innerText;
+            for(i=0; i < arraytasks.length; i++){
+                if(arraytasks[i].id == currentColumnId && arraytasks[i].title == currentDiv.childNodes[0].innerText && arraytasks[i].description == currentTaskDescription){
+                    delete arraytasks[i];
+                    break;
+                }
+            }
             if (titleTask.value.length > 0){
                 currentDiv.childNodes[0].innerHTML = titleTask.value;
+                var array = {id:currentColumnId, title:titleTask.value, description:currentTaskDescription};
             }
             else{
                 currentDiv.childNodes[0].innerHTML = 'Titre de la tâche';
+                var array = {id:currentColumnId, title:"Titre de la tâche", description:currentTaskDescription};
             }
+            arraytasks.push(array);
+            arraytasks = arraytasks.filter(function(n){ return n != undefined });
+            localStorage.setItem("tasks", JSON.stringify(arraytasks));
             titleTask.classList.add('none');
             titleTaskButton.classList.add('none');
         }
     }
 
+// this function change the description of a task
     function changeDescriptionTask(currentTask){
         var descriptionTask = currentTask.childNodes[2];
         var textarea = currentTask.childNodes[3];
@@ -235,16 +303,29 @@ window.onload =  function(){
         textarea.classList.remove('none');
         descriptionTaskButton.classList.remove('none');
         descriptionTaskButton.onclick = function(){
+            var currentColumnId = currentTask.parentElement.parentElement.childNodes[4].value;
+            var currentTaskTitle = currentTask.parentElement.childNodes[0].innerText;
+            for(i=0; i < arraytasks.length; i++){
+                if(arraytasks[i].id == currentColumnId && arraytasks[i].title == currentTaskTitle && arraytasks[i].description == descriptionTask.innerText){
+                    delete arraytasks[i];
+                    break;
+                }
+            }
             if(textarea.value == ""){
                 descriptionTask.innerHTML = "Description";
+                var array = {id:currentColumnId, title:currentTaskTitle, description:"Description"};
                 currentTask.childNodes[4].classList.remove('none');
                 currentTask.childNodes[3].classList.add('none');
             }
             else{
                 descriptionTask.innerHTML = textarea.value;
+                var array = {id:currentColumnId, title:currentTaskTitle, description:textarea.value};
                 currentTask.childNodes[3].classList.remove('none');
                 currentTask.childNodes[4].classList.add('none');
             }
+            arraytasks.push(array);
+            arraytasks = arraytasks.filter(function(n){ return n != undefined });
+            localStorage.setItem("tasks", JSON.stringify(arraytasks));
             textarea.classList.add('none');
             descriptionTaskButton.classList.add('none');
         }
@@ -253,13 +334,12 @@ window.onload =  function(){
 // this function change the title of a column
     function changetitle(currentDiv){
         var compteur = currentDiv.childNodes[4].value;
-        console.log(compteur);
         var myInput = currentDiv.childNodes[1];
         var myButton = currentDiv.childNodes[2];
         myInput.classList.remove('none');
         myButton.classList.remove('none');
         myButton.onclick = function(){
-             for(i=0; i < arraycolumn.length; i++){
+            for(i=0; i < arraycolumn.length; i++){
                 if(arraycolumn[i].id == compteur){
                     delete arraycolumn[i];
                 }
@@ -273,7 +353,7 @@ window.onload =  function(){
                 var array = {id:compteur, title:myInput.value};
             }
             arraycolumn.push(array);
-            arraycolumn = arraycolumn.filter(function(n){ return n != undefined }); 
+            arraycolumn = arraycolumn.filter(function(n){ return n != undefined });
             localStorage.setItem("columns", JSON.stringify(arraycolumn));
             myInput.classList.add('none');
             myButton.classList.add('none');
@@ -283,6 +363,8 @@ window.onload =  function(){
     addColumnButton.onclick = function(){
         addColumn();
     }
+
+
 
 // this function is called when the user creat a new column or task, she actualise the variable wich take the number of button for delete add or change something
     function refresh_for_column(){

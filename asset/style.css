@@ -12,6 +12,8 @@
       border: 3px solid #0079BF;
       border-radius: 10px;
       background: #0079BF; }
+      body #container .drop_hover {
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.8) inset; }
       body #container .dropper {
         width: 28%;
         min-height: 250px;
