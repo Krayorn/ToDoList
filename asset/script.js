@@ -25,7 +25,7 @@ window.onload =  function(){
                 for (j = 0; j < tasks.length; j++){
                     if ( tasks[j].id == columns[i].id){
                         columnArea.childNodes[i+1].innerHTML +=  '<div class="tasks">'+
-                                                    '<div class="taskTitle">Titre de la tâche</div>' +
+                                                    '<div class="taskTitle">' + tasks[j].title + '</div>' +
                                                     '<input class="hide_title none" placeholder="Titre" type="text"/>' +
                                                     '<input class="none input_text" value="Valider" type="submit"/>' +
                                                     '<div class="all_info_task">' +
@@ -37,7 +37,7 @@ window.onload =  function(){
                                                             '<a href="#" class="icon  deleteTask"><img src="../asset/img/remove_task.png"/></a>'+
                                                         '</div>' +
                                                         '<span class="title_column none">Titre de la colonne</span>' +
-                                                        '<div class="taskDescription none">Description</div>' +
+                                                        '<div class="taskDescription none">' + tasks[j].description + '</div>' +
                                                         '<textarea cols="100" rows="10" class="textarea none" placeholder="Description..."></textarea>' +
                                                         '<input class="none" value="Valider" type="submit"/>'+
                                                     '</div>' +
@@ -137,8 +137,15 @@ window.onload =  function(){
                 delete arraycolumn[i];
             }
         }
+        for (j=0; j < arraytasks.length; j++){
+            if(arraytasks[j].id == compteur){
+                delete arraytasks[j];
+            }
+        }
         arraycolumn = arraycolumn.filter(function(n){ return n != undefined }); 
         localStorage.setItem("columns", JSON.stringify(arraycolumn));
+        arraytasks = arraytasks.filter(function(n){ return n != undefined }); 
+        localStorage.setItem("tasks", JSON.stringify(arraytasks));
         compteurColumns--;
         localStorage.setItem("compteur", compteurColumns);
         columnArea.removeChild(currentDiv.parentNode);
@@ -185,13 +192,10 @@ window.onload =  function(){
     }
 
     function deleteTask(currentTask){
-        console.log(arraytasks);
         var currentColumnId = currentTask.parentElement.parentElement.parentElement.childNodes[4].value;
         var currentTaskTitle = currentTask.parentElement.parentElement.childNodes[0].innerText;
         var currentTaskDescription = currentTask.parentElement.childNodes[2].innerText;
-        console.log(currentColumnId, currentTaskTitle, currentTaskDescription);
         for(i=0; i < arraytasks.length; i++){
-            console.log(arraytasks[i].id, arraytasks[i].title, arraytasks[i].description);
             if(arraytasks[i].id == currentColumnId && arraytasks[i].title == currentTaskTitle && arraytasks[i].description == currentTaskDescription){
                 delete arraytasks[i];
                 break;
@@ -209,12 +213,25 @@ window.onload =  function(){
         titleTask.classList.remove('none');
         titleTaskButton.classList.remove('none');
         titleTaskButton.onclick = function(){
+            var currentColumnId = currentDiv.parentElement.childNodes[4].value;
+            var currentTaskDescription = currentDiv.childNodes[3].childNodes[2].innerText;
+            for(i=0; i < arraytasks.length; i++){
+                if(arraytasks[i].id == currentColumnId && arraytasks[i].title == currentDiv.childNodes[0].innerText && arraytasks[i].description == currentTaskDescription){
+                    delete arraytasks[i];
+                    break;
+                }
+            }
             if (titleTask.value.length > 0){
                 currentDiv.childNodes[0].innerHTML = titleTask.value;
+                var array = {id:currentColumnId, title:titleTask.value, description:currentTaskDescription};
             }
             else{
                 currentDiv.childNodes[0].innerHTML = 'Titre de la tâche';
+                var array = {id:currentColumnId, title:"Titre de la tâche", description:currentTaskDescription};
             }
+            arraytasks.push(array);
+            arraytasks = arraytasks.filter(function(n){ return n != undefined }); 
+            localStorage.setItem("tasks", JSON.stringify(arraytasks));
             titleTask.classList.add('none');
             titleTaskButton.classList.add('none');
         }
@@ -227,16 +244,29 @@ window.onload =  function(){
         textarea.classList.remove('none');
         descriptionTaskButton.classList.remove('none');
         descriptionTaskButton.onclick = function(){
+            var currentColumnId = currentTask.parentElement.parentElement.childNodes[4].value;
+            var currentTaskTitle = currentTask.parentElement.childNodes[0].innerText;
+            for(i=0; i < arraytasks.length; i++){
+                if(arraytasks[i].id == currentColumnId && arraytasks[i].title == currentTaskTitle && arraytasks[i].description == descriptionTask.innerText){
+                    delete arraytasks[i];
+                    break;
+                }
+            }
             if(textarea.value == ""){
                 descriptionTask.innerHTML = "Description";
+                var array = {id:currentColumnId, title:currentTaskTitle, description:"Description"};
                 currentTask.childNodes[4].classList.remove('none');
                 currentTask.childNodes[3].classList.add('none');
             }
             else{
                 descriptionTask.innerHTML = textarea.value;
+                var array = {id:currentColumnId, title:currentTaskTitle, description:textarea.value};
                 currentTask.childNodes[3].classList.remove('none');
                 currentTask.childNodes[4].classList.add('none');
             }
+            arraytasks.push(array);
+            arraytasks = arraytasks.filter(function(n){ return n != undefined }); 
+            localStorage.setItem("tasks", JSON.stringify(arraytasks));
             textarea.classList.add('none');
             descriptionTaskButton.classList.add('none');
         }
@@ -269,6 +299,7 @@ window.onload =  function(){
             myInput.classList.add('none');
             myButton.classList.add('none');
         }
+        refresh_for_tasks();
     }
 
     addColumnButton.onclick = function(){
