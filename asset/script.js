@@ -8,7 +8,7 @@ window.onload =  function(){
     var columns = JSON.parse(localStorage.getItem("columns"));
     var tasks = JSON.parse(localStorage.getItem("tasks"));
 
-   var dndHandler = {
+    var dndHandler = {
 
         draggedElement: null, // Propriété pointant vers l'élément en cours de déplacement
 
@@ -29,11 +29,11 @@ window.onload =  function(){
 
             dropper.addEventListener('dragover', function(e) {
                 e.preventDefault(); // On autorise le drop d'éléments
-                this.className = 'column drop_hover'; // Et on applique le style adéquat à notre zone de drop quand un élément la survole
+                this.className = 'dropper drop_hover'; // Et on applique le style adéquat à notre zone de drop quand un élément la survole
             });
 
             dropper.addEventListener('dragleave', function() {
-                this.className = 'column'; // On revient au style de base lorsque l'élément quitte la zone de drop
+                this.className = 'dropper'; // On revient au style de base lorsque l'élément quitte la zone de drop
             });
 
             var dndHandler = this; // Cette variable est nécessaire pour que l'événement « drop » ci-dessous accède facilement au namespace « dndHandler »
@@ -44,78 +44,78 @@ window.onload =  function(){
                     draggedElement = dndHandler.draggedElement, // Récupération de l'élément concerné
                     clonedElement = draggedElement.cloneNode(true); // On créé immédiatement le clone de cet élément
 
-                while (target.className.indexOf('column') == -1) { // Cette boucle permet de remonter jusqu'à la zone de drop parente
+                while (target.className.indexOf('dropper') == -1) { // Cette boucle permet de remonter jusqu'à la zone de drop parente
                     target = target.parentNode;
                 }
 
-                target.className = 'column'; // Application du style par défaut
+                target.className = 'dropper'; // Application du style par défaut
 
                 clonedElement = target.appendChild(clonedElement); // Ajout de l'élément cloné à la zone de drop actuelle
                 dndHandler.applyDragEvents(clonedElement); // Nouvelle application des événements qui ont été perdus lors du cloneNode()
-                for (i=0; i < arraytasks.length; i++){
-                    if(arraytasks[i].id == draggedElement.parentNode.childNodes[4].value && arraytasks[i].title == draggedElement.childNodes[0].innerText && arraytasks[i].description == draggedElement.childNodes[3].childNodes[2].innerText){
-                        delete arraytasks[i];
-                        break;
-                    }
-                }
-                var array = {id:clonedElement.parentElement.childNodes[4].value, title:clonedElement.childNodes[0].innerText, description:clonedElement.childNodes[3].childNodes[2].innerText};
-                arraytasks.push(array); 
-                arraytasks = arraytasks.filter(function(n){ return n != undefined }); 
-                localStorage.setItem("tasks", JSON.stringify(arraytasks));    
+
                 draggedElement.parentNode.removeChild(draggedElement); // Suppression de l'élément d'origine
-                refresh_for_tasks();
+
             });
+            //refresh_for_tasks();
         }
 
     }
 
-    
     function saved_column(){
         for(i = 0; i < columns.length;i++){
-                compteurColumns++;
-                columnArea.innerHTML += '<div class="column">' +
+            compteurColumns++;
+            columnArea.innerHTML += '<div class="dropper">' +
                 '<span class="title_column">'+ columns[i].title +'</span>' +
                 '<input class="none input_text" type="text" name="title" value="'+ columns[i].title +'"/>' +
                 '<input class="none" type="submit"/>' +
                 '<div class="all_icons_column">' +
-                    '<a href="#" class="addTask icon"><img src="../asset/img/add_task.png"/></a>' +
-                    '<a href="#" class="deleteColumn icon"><img src="../asset/img/remove_column.png"/></a>' +
+                '<a href="#" class="addTask icon"><img src="../asset/img/add_task.png"/></a>' +
+                '<a href="#" class="deleteColumn icon"><img src="../asset/img/remove_column.png"/></a>' +
                 '</div>' +
                 '<input class="none" type="text" name="idColumn" value="'+compteurColumns+'">' +
-            '</div>' ;
+                '</div>' ;
             if(tasks){
                 for (j = 0; j < tasks.length; j++){
                     if ( tasks[j].id == columns[i].id){
-                        columnArea.childNodes[i+1].innerHTML +=  '<div class="tasks">'+
-                                                    '<div class="taskTitle">' + tasks[j].title + '</div>' +
-                                                    '<input class="hide_title none" placeholder="Titre" type="text"/>' +
-                                                    '<input class="none input_text" value="Valider" type="submit"/>' +
-                                                    '<div class="all_info_task">' +
-                                                        '<div class="all_icons_task">' +
-                                                            '<a href="#"  class="icon dezoomButton none"> <img src="../asset/img/dezoom.png"/></a>' +
-                                                            '<a href="#" class="icon zoomButton"><img src="../asset/img/zoom.png"/></a>' +
-                                                            '<a href="#" class="empty_task icon" ><img  src="../asset/img/empty.png"/></a>' +
-                                                            '<a href="#" class="empty_task none icon"><img  src="../asset/img/edit.png"/></a>' +
-                                                            '<a href="#" class="icon  deleteTask"><img src="../asset/img/remove_task.png"/></a>'+
-                                                        '</div>' +
-                                                        '<span class="title_column none">Titre de la colonne</span>' +
-                                                        '<div class="taskDescription none">' + tasks[j].description + '</div>' +
-                                                        '<textarea cols="100" rows="10" class="textarea none" placeholder="Description..."></textarea>' +
-                                                        '<input class="none" value="Valider" type="submit"/>'+
-                                                    '</div>' +
-                                                    '</div>';
+                        columnArea.childNodes[i+1].innerHTML +=  '<div class="draggable">'+
+                            '<div class="taskTitle">' + tasks[j].title + '</div>' +
+                            '<input class="hide_title none" placeholder="Titre" type="text"/>' +
+                            '<input class="none input_text" value="Valider" type="submit"/>' +
+                            '<div class="all_info_task">' +
+                            '<div class="all_icons_task">' +
+                            '<a href="#"  class="icon dezoomButton none"> <img src="../asset/img/dezoom.png"/></a>' +
+                            '<a href="#" class="icon zoomButton"><img src="../asset/img/zoom.png"/></a>' +
+                            '<a href="#" class="empty_task icon" ><img  src="../asset/img/empty.png"/></a>' +
+                            '<a href="#" class="empty_task none icon"><img  src="../asset/img/edit.png"/></a>' +
+                            '<a href="#" class="icon  deleteTask"><img src="../asset/img/remove_task.png"/></a>'+
+                            '</div>' +
+                            '<span class="title_column none">Titre de la colonne</span>' +
+                            '<div class="taskDescription none">' + tasks[j].description + '</div>' +
+                            '<textarea cols="100" rows="10" class="textarea none" placeholder="Description..."></textarea>' +
+                            '<input class="none" value="Valider" type="submit"/>'+
+                            '</div>' +
+                            '</div>';
+
+                        taskTitle = document.querySelectorAll('.taskTitle');
+                        zoomButton = document.querySelectorAll('.zoomButton');
+                        dezoomButton = document.querySelectorAll('.dezoomButton');
+                        deleteTasks = document.querySelectorAll('.deleteTask');
+                        tasksDescription = document.querySelectorAll('.taskDescription');
                         var array = {id:compteurColumns, title:tasks[j].title, description:tasks[j].description};
                         arraytasks.push(array);
                         localStorage.setItem("tasks", JSON.stringify(arraytasks));
+                        refresh_for_tasks();
                     }
                 }
             }
             localStorage.setItem("compteur", compteurColumns);
+            addPostitButton = document.querySelectorAll('.addTask');
+            deleteColumnButton = document.querySelectorAll('.deleteColumn');
+            columntitle = document.querySelectorAll('.title_column');
             var array = {id:compteurColumns, title:columns[i].title};
             arraycolumn.push(array);
             localStorage.setItem("columns", JSON.stringify(arraycolumn));
-            refresh_for_tasks();
-            refresh_for_column(); 
+            refresh_for_column();
         }
     }
 
@@ -124,36 +124,38 @@ window.onload =  function(){
     saved_column();
  }
 
-
 // this function add a new column
     function addColumn(){
         compteurColumns++;
-        columnArea.innerHTML += '<div class="column">' +
+        columnArea.innerHTML += '<div class="dropper">' +
                 '<span class="title_column">Cliquez ici pour changer le titre !</span>' +
-                '<input class="none input_text" type="text" name="title" value="Titre de la colonne"/>' +
+                '<input onchange="sessionStorage.message=this.value" class="none input_text" type="text" name="title" value="Titre de la colonne"/>' +
                 '<input class="none" type="submit"/>' +
                 '<div class="all_icons_column">' +
-                    '<a href="" class="addTask icon"><img src="../asset/img/add_task.png"/></a>' +
-                    '<a href="" class="deleteColumn icon"><img src="../asset/img/remove_column.png"/></a>' +
+                    '<a href="#" class="addTask icon"><img src="../asset/img/add_task.png"/></a>' +
+                    '<a href="#" class="deleteColumn icon"><img src="../asset/img/remove_column.png"/></a>' +
                 '</div>' +
                 '<input class="none" type="text" name="idColumn" value="'+compteurColumns+'">' +
             '</div>' ;
+        addPostitButton = document.querySelectorAll('.addTask');
+        deleteColumnButton = document.querySelectorAll('.deleteColumn');
+        columntitle = document.querySelectorAll('.title_column');
         refresh_for_column();
         localStorage.setItem("compteur", compteurColumns);
         var array = {id:compteurColumns, title:"Titre de la colonne"};
         arraycolumn.push(array);
         localStorage.setItem("columns", JSON.stringify(arraycolumn));
-        refresh_for_tasks();
     }
+
 
 // this function add a new task in the right column
     function addTask(currentDiv){
         var parent = currentDiv.parentNode;
         var d=document.createElement("div");
-        d.classList.add("tasks");
+        d.classList.add("draggable");
         parent.appendChild(d);
         d.innerHTML +=  '<div class="taskTitle">Titre de la tâche</div>' +
-            '<input class="hide_title none" placeholder="Titre" type="text"/>' +
+            '<input onchange="sessionStorage.message=this.value" class="hide_title none" placeholder="Titre" type="text"/>' +
             '<input class="none input_text" value="Valider" type="submit"/>' +
             '<div class="all_info_task">' +
                 '<div class="all_icons_task">' +
@@ -165,10 +167,17 @@ window.onload =  function(){
                 '</div>' +
                 '<span class="title_column none">Titre de la colonne</span>' +
                 '<div class="taskDescription none">Description</div>' +
-                '<textarea cols="100" rows="10" class="textarea none" placeholder="Description..."></textarea>' +
+                '<textarea onchange="sessionStorage.message=this.value" cols="100" rows="10" class="textarea none" placeholder="Description..."></textarea>' +
                 '<input class="none" value="Valider" type="submit"/>'+
             '</div>';
 
+
+
+        taskTitle = document.querySelectorAll('.taskTitle');
+        zoomButton = document.querySelectorAll('.zoomButton');
+        dezoomButton = document.querySelectorAll('.dezoomButton');
+        deleteTasks = document.querySelectorAll('.deleteTask');
+        tasksDescription = document.querySelectorAll('.taskDescription');
         refresh_for_tasks();
         var array = {id:parent.childNodes[4].value, title:"Titre de la tâche", description:"Description"};
         arraytasks.push(array);
@@ -188,9 +197,9 @@ window.onload =  function(){
                 delete arraytasks[j];
             }
         }
-        arraycolumn = arraycolumn.filter(function(n){ return n != undefined }); 
+        arraycolumn = arraycolumn.filter(function(n){ return n != undefined });
         localStorage.setItem("columns", JSON.stringify(arraycolumn));
-        arraytasks = arraytasks.filter(function(n){ return n != undefined }); 
+        arraytasks = arraytasks.filter(function(n){ return n != undefined });
         localStorage.setItem("tasks", JSON.stringify(arraytasks));
         compteurColumns--;
         localStorage.setItem("compteur", compteurColumns);
@@ -199,13 +208,16 @@ window.onload =  function(){
 
     function zoomTasks(currentTask){
         currentTask.parentNode.classList.add('zoom');
-        currentTask.classList.remove('tasks');
+        currentTask.classList.remove('draggable');
         currentTask.childNodes[1].classList.add('none');
         currentTask.childNodes[3].classList.add('none');
         currentTask.childNodes[0].classList.remove('none');
         currentTask.childNodes[2].classList.remove('none');
         currentTask.parentNode.childNodes[1].classList.remove('none');
         currentTask.parentNode.childNodes[2].classList.remove('none');
+
+        //currentTask.parentNode.childNodes[2].innerHTML = 'slt';
+
         currentTask.parentNode.childNodes[1].innerHTML = currentTask.parentNode.parentNode.parentNode.childNodes[1].value;
 
         if(currentTask.parentNode.childNodes[2].innerHTML == '' ||
@@ -226,6 +238,7 @@ window.onload =  function(){
         currentTask.childNodes[2].classList.remove('none');
         currentTask.childNodes[4].classList.remove('none');
         currentTask.parentNode.childNodes[1].classList.add('none');
+        //currentTask.parentNode.childNodes[2].classList.add('none');
 
         if(currentTask.parentNode.childNodes[2].innerHTML == 'Description'){
             currentTask.childNodes[2].classList.remove('none');
@@ -247,12 +260,11 @@ window.onload =  function(){
                 break;
             }
         }
-        arraytasks = arraytasks.filter(function(n){ return n != undefined }); 
+        arraytasks = arraytasks.filter(function(n){ return n != undefined });
         localStorage.setItem("tasks", JSON.stringify(arraytasks));
         currentTask.parentElement.parentNode.remove();
     }
-
-// this function change the title of a task
+    // this function change the title of a task
     function changeTitleTask(currentDiv){
         var titleTask = currentDiv.childNodes[1];
         var titleTaskButton = currentDiv.childNodes[2];
@@ -276,13 +288,14 @@ window.onload =  function(){
                 var array = {id:currentColumnId, title:"Titre de la tâche", description:currentTaskDescription};
             }
             arraytasks.push(array);
-            arraytasks = arraytasks.filter(function(n){ return n != undefined }); 
+            arraytasks = arraytasks.filter(function(n){ return n != undefined });
             localStorage.setItem("tasks", JSON.stringify(arraytasks));
             titleTask.classList.add('none');
             titleTaskButton.classList.add('none');
         }
     }
 
+// this function change the description of a task
     function changeDescriptionTask(currentTask){
         var descriptionTask = currentTask.childNodes[2];
         var textarea = currentTask.childNodes[3];
@@ -311,7 +324,7 @@ window.onload =  function(){
                 currentTask.childNodes[4].classList.add('none');
             }
             arraytasks.push(array);
-            arraytasks = arraytasks.filter(function(n){ return n != undefined }); 
+            arraytasks = arraytasks.filter(function(n){ return n != undefined });
             localStorage.setItem("tasks", JSON.stringify(arraytasks));
             textarea.classList.add('none');
             descriptionTaskButton.classList.add('none');
@@ -326,7 +339,7 @@ window.onload =  function(){
         myInput.classList.remove('none');
         myButton.classList.remove('none');
         myButton.onclick = function(){
-             for(i=0; i < arraycolumn.length; i++){
+            for(i=0; i < arraycolumn.length; i++){
                 if(arraycolumn[i].id == compteur){
                     delete arraycolumn[i];
                 }
@@ -340,25 +353,21 @@ window.onload =  function(){
                 var array = {id:compteur, title:myInput.value};
             }
             arraycolumn.push(array);
-            arraycolumn = arraycolumn.filter(function(n){ return n != undefined }); 
+            arraycolumn = arraycolumn.filter(function(n){ return n != undefined });
             localStorage.setItem("columns", JSON.stringify(arraycolumn));
             myInput.classList.add('none');
             myButton.classList.add('none');
         }
-        refresh_for_column();
     }
 
     addColumnButton.onclick = function(){
         addColumn();
     }
 
+
+
 // this function is called when the user creat a new column or task, she actualise the variable wich take the number of button for delete add or change something
     function refresh_for_column(){
-
-        addPostitButton = document.querySelectorAll('.addTask');
-        deleteColumnButton = document.querySelectorAll('.deleteColumn');
-        columntitle = document.querySelectorAll('.title_column');
-
         for(var i = 0; i < addPostitButton.length; i++){
             addPostitButton[i].onclick = function () {
                 addTask(this.parentElement);
@@ -374,21 +383,15 @@ window.onload =  function(){
                 changetitle(this.parentElement);
             }
         }
-                var droppers = document.querySelectorAll('.column');
-                var droppersLen = droppers.length;
+        var droppers = document.querySelectorAll('.dropper');
+        var droppersLen = droppers.length;
 
         for (var i = 0; i < droppersLen; i++) {
             dndHandler.applyDropEvents(droppers[i]); // Application des événements nécessaires aux zones de drop
         }
+        refresh_for_tasks();
     }
     function refresh_for_tasks(){
-        
-        taskTitle = document.querySelectorAll('.taskTitle');
-        zoomButton = document.querySelectorAll('.zoomButton');
-        dezoomButton = document.querySelectorAll('.dezoomButton');
-        deleteTasks = document.querySelectorAll('.deleteTask');
-        tasksDescription = document.querySelectorAll('.taskDescription');
-
         for(var i = 0; i < taskTitle.length; i++){
             taskTitle[i].onclick = function(){
                 changeTitleTask(this.parentElement);
@@ -414,13 +417,13 @@ window.onload =  function(){
                 changeDescriptionTask(this.parentElement);
             }
         }
-
-        var elements = document.querySelectorAll('.tasks');
+        var elements = document.querySelectorAll('.draggable');
         var elementsLen = elements.length;
+        console.log(elementsLen);
 
         for (var i = 0; i < elementsLen; i++) {
+            console.log(elementsLen);
             dndHandler.applyDragEvents(elements[i]); // Application des paramètres nécessaires aux éléments déplaçables
         }
-
     }
 };

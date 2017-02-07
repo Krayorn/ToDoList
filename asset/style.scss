@@ -17,8 +17,8 @@
       .drop_hover {
         box-shadow: 0 0 30px rgba(0, 0, 0, 0.8) inset;
       }
-
       .column {
+      .dropper {
         width: 28%;
         min-height: 250px;
         border: 2px solid #0079BF;
@@ -59,7 +59,7 @@
         .input_text {
           width: 95%;
         }
-        .tasks {
+        .draggable {
           width: 90%;
           margin: 5px auto;
           border: 2px solid #0079BF;
@@ -178,18 +178,16 @@
 }
 @media only screen and (max-width:960px){
   body{
-
     #container{
-      .column{
+      .dropper{
         width: 40%;
         margin : 5px auto;
         min-height : 50px;
         background: #CCCCCC;
-        .tasks{
+        .draggable{
           background: #FFFFFF;
         }
       }
-
       .zoom {
         padding: 20px;
         left : 7%;
@@ -202,7 +200,6 @@
         }
       }
     }
-
   }
 }
 
@@ -211,15 +208,13 @@
     //background: lightgray; //TODO
 
     #container{
-      .column{
+      .dropper{
         width: 90%;
         margin : 5px auto;
         min-height : 50px;
         background: #CCCCCC;
-
       }
-
-      .zoom {
+      .zoom{
         padding: 20px;
         left : 7%;
         width: 80%;
@@ -231,7 +226,6 @@
         }
       }
     }
-
   }
 }
 
