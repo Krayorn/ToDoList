@@ -13,9 +13,8 @@
       border-radius: 10px;
       background: #0079BF; }
       body #container .drop_hover {
-        box-shadow: 0 0 30px rgba(0, 0, 0, 0.8) inset; }
+        box-shadow: 0 0 30px #0079bf inset; }
       body #container .column {
-      body #container .dropper {
         width: 28%;
         min-height: 250px;
         border: 2px solid #0079BF;
@@ -25,17 +24,17 @@
         background: #E9E9EB;
         display: flex;
         flex-direction: column; }
-        body #container .dropper .all_icons_column {
+        body #container .column .all_icons_column {
           padding: 5px;
           display: flex;
           flex-direction: row;
           justify-content: space-between; }
-          body #container .dropper .all_icons_column .icon {
+          body #container .column .all_icons_column .icon {
             padding: 5px 0;
             cursor: pointer;
             width: 10%;
             text-align: center; }
-        body #container .dropper .title_column {
+        body #container .column .title_column {
           text-align: center;
           cursor: pointer;
           font-weight: bold;
@@ -43,11 +42,11 @@
           border-bottom: 1px solid #0079BF;
           width: 100%;
           min-height: 30px; }
-        body #container .dropper input {
+        body #container .column input {
           width: 100%; }
-        body #container .dropper .input_text {
+        body #container .column .input_text {
           width: 95%; }
-        body #container .dropper .draggable {
+        body #container .column .tasks {
           width: 90%;
           margin: 5px auto;
           border: 2px solid #0079BF;
@@ -57,19 +56,32 @@
           background: #F6F7F9;
           display: flex;
           flex-direction: column; }
-          body #container .dropper .draggable .all_info_task .all_icons_task {
+          body #container .column .tasks .modal {
+            position: fixed;
+            z-index: 1;
+            /* Sit on top */
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: auto;
+            background-color: black;
+            background-color: rgba(0, 0, 0, 0.4); }
+            body #container .column .tasks .modal .zoom {
+              margin-top: 35%; }
+          body #container .column .tasks .all_info_task .all_icons_task {
             padding: 5px;
             display: flex;
             flex-direction: row;
             justify-content: space-between; }
-            body #container .dropper .draggable .all_info_task .all_icons_task .icon {
+            body #container .column .tasks .all_info_task .all_icons_task .icon {
               padding: 5px 0;
               cursor: pointer;
               width: 10%;
               text-align: center; }
-          body #container .dropper .draggable .all_info_task .toVerif {
+          body #container .column .tasks .all_info_task .toVerif {
             display: none; }
-          body #container .dropper .draggable .taskTitle {
+          body #container .column .tasks .taskTitle {
             text-align: center;
             cursor: pointer;
             font-weight: bold;
@@ -77,15 +89,15 @@
             border-bottom: 1px solid #0079BF;
             width: 100%;
             height: 30px; }
-          body #container .dropper .draggable .hide_title {
+          body #container .column .tasks .hide_title {
             width: 90%; }
-          body #container .dropper .draggable .taskDescription {
+          body #container .column .tasks .taskDescription {
             font-family: 'Roboto', sans-serif;
             color: lightslategray; }
-          body #container .dropper .draggable textarea {
+          body #container .column .tasks textarea {
             width: 100%;
             height: 50px; }
-          body #container .dropper .draggable .zoom {
+          body #container .column .tasks .zoom {
             position: absolute;
             background-color: #FFFFFF;
             padding: 20px;
@@ -94,17 +106,17 @@
             height: 250px;
             border-radius: 20px;
             border: 1px solid black; }
-            body #container .dropper .draggable .zoom .taskTitle {
+            body #container .column .tasks .zoom .taskTitle {
               font-family: 'Lato', sans-serif;
               display: flex;
               justify-content: space-between;
               font-weight: bold;
               font-size: 1em;
               border: 1px solid black; }
-            body #container .dropper .draggable .zoom .taskDescription {
+            body #container .column .tasks .zoom .taskDescription {
               font-family: 'Roboto', sans-serif;
               color: lightslategray; }
-        body #container .dropper .none {
+        body #container .column .none {
           display: none; }
     body header {
       width: 100%;
@@ -122,12 +134,12 @@
       padding-top: 25px;
       width: 100%; } }
 @media only screen and (max-width: 960px) {
-  body #container .dropper {
+  body #container .column {
     width: 40%;
     margin: 5px auto;
     min-height: 50px;
     background: #CCCCCC; }
-    body #container .dropper .draggable {
+    body #container .column .tasks {
       background: #FFFFFF; }
   body #container .zoom {
     padding: 20px;
@@ -138,7 +150,7 @@
     body #container .zoom .taskDescription {
       color: #222222; } }
 @media only screen and (max-width: 640px) {
-  body #container .dropper {
+  body #container .column {
     width: 90%;
     margin: 5px auto;
     min-height: 50px;
@@ -152,4 +164,7 @@
     body #container .zoom .taskDescription {
       color: #222222; } }
 
+.none{
+  display: none;
+}
 /*# sourceMappingURL=style.css.map */
