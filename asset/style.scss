@@ -1,3 +1,10 @@
+@keyframes flash{  
+    25%{ border : 2px solid red; }
+    50%{ border : 2px solid #0079BF; }
+    75%{ border : 2px solid red; }
+    100%{ border : 2px solid #0079BF;}
+}
+
 @media only screen and (max-width:2000px){
   body {
     padding: 0px;
@@ -18,7 +25,7 @@
         box-shadow: 0 0 30px rgba(0, 0, 0, 0.8) inset;
       }
       .column {
-      .dropper {
+        animation: flash 1s;
         width: 28%;
         min-height: 250px;
         border: 2px solid #0079BF;
@@ -59,7 +66,7 @@
         .input_text {
           width: 95%;
         }
-        .draggable {
+        .tasks {
           width: 90%;
           margin: 5px auto;
           border: 2px solid #0079BF;
@@ -150,8 +157,7 @@
 
       }
     }
-
-    header {
+      header {
       width: 100%;
       height: 50px;
       background: #0079BF;
@@ -172,19 +178,17 @@
       padding-top: 25px;
       width: 100%;
     }
-
-
-  }
+}
 }
 @media only screen and (max-width:960px){
   body{
     #container{
-      .dropper{
+      .column{
         width: 40%;
         margin : 5px auto;
         min-height : 50px;
         background: #CCCCCC;
-        .draggable{
+        .tasks{
           background: #FFFFFF;
         }
       }
@@ -208,7 +212,7 @@
     //background: lightgray; //TODO
 
     #container{
-      .dropper{
+      .column{
         width: 90%;
         margin : 5px auto;
         min-height : 50px;
@@ -228,7 +232,3 @@
     }
   }
 }
-
-
-
-

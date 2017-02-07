@@ -1,3 +1,12 @@
+@keyframes flash {
+  25% {
+    border: 2px solid red; }
+  50% {
+    border: 2px solid #0079BF; }
+  75% {
+    border: 2px solid red; }
+  100% {
+    border: 2px solid #0079BF; } }
 @media only screen and (max-width: 2000px) {
   body {
     padding: 0px;
@@ -13,8 +22,9 @@
       border-radius: 10px;
       background: #0079BF; }
       body #container .drop_hover {
-        box-shadow: 0 0 30px #0079bf inset; }
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.8) inset; }
       body #container .column {
+        animation: flash 1s;
         width: 28%;
         min-height: 250px;
         border: 2px solid #0079BF;
@@ -56,19 +66,6 @@
           background: #F6F7F9;
           display: flex;
           flex-direction: column; }
-          body #container .column .tasks .modal {
-            position: fixed;
-            z-index: 1;
-            /* Sit on top */
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            overflow: auto;
-            background-color: black;
-            background-color: rgba(0, 0, 0, 0.4); }
-            body #container .column .tasks .modal .zoom {
-              margin-top: 35%; }
           body #container .column .tasks .all_info_task .all_icons_task {
             padding: 5px;
             display: flex;
@@ -164,7 +161,4 @@
     body #container .zoom .taskDescription {
       color: #222222; } }
 
-.none{
-  display: none;
-}
 /*# sourceMappingURL=style.css.map */

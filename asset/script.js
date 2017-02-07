@@ -14,15 +14,12 @@ window.onload =  function(){
 
         applyDragEvents: function(element) {
 
-            element.draggable = true;
-
             var dndHandler = this; // Cette variable est nécessaire pour que l'événement « dragstart » ci-dessous accède facilement au namespace « dndHandler »
 
             element.addEventListener('dragstart', function(e) {
                 dndHandler.draggedElement = e.target; // On sauvegarde l'élément en cours de déplacement
                 e.dataTransfer.setData('text/plain', ''); // Nécessaire pour Firefox
             });
-            //refresh_for_tasks();
         },
 
         applyDropEvents: function(dropper) {
@@ -86,7 +83,7 @@ window.onload =  function(){
             if(tasks){
                 for (j = 0; j < tasks.length; j++){
                     if ( tasks[j].id == columns[i].id){
-                        columnArea.childNodes[i+1].innerHTML +=  '<div class="tasks">'+
+                        columnArea.childNodes[i+1].innerHTML +=  '<div class="tasks" draggable="true">'+
                                                     '<div class="taskTitle">' + tasks[j].title + '</div>' +
                                                     '<input class="hide_title none" placeholder="Titre" type="text"/>' +
                                                     '<input class="none input_text" value="Valider" type="submit"/>' +
@@ -374,8 +371,8 @@ window.onload =  function(){
                 changetitle(this.parentElement);
             }
         }
-                var droppers = document.querySelectorAll('.column');
-                var droppersLen = droppers.length;
+        var droppers = document.querySelectorAll('.column');
+        var droppersLen = droppers.length;
 
         for (var i = 0; i < droppersLen; i++) {
             dndHandler.applyDropEvents(droppers[i]); // Application des événements nécessaires aux zones de drop
