@@ -7,6 +7,68 @@ window.onload =  function(){
     var compteurColumns = 0;
     var columns = JSON.parse(localStorage.getItem("columns"));
     var tasks = JSON.parse(localStorage.getItem("tasks"));
+
+   var dndHandler = {
+
+        draggedElement: null, // Propriété pointant vers l'élément en cours de déplacement
+
+        applyDragEvents: function(element) {
+
+            element.draggable = true;
+
+            var dndHandler = this; // Cette variable est nécessaire pour que l'événement « dragstart » ci-dessous accède facilement au namespace « dndHandler »
+
+            element.addEventListener('dragstart', function(e) {
+                dndHandler.draggedElement = e.target; // On sauvegarde l'élément en cours de déplacement
+                e.dataTransfer.setData('text/plain', ''); // Nécessaire pour Firefox
+            });
+            //refresh_for_tasks();
+        },
+
+        applyDropEvents: function(dropper) {
+
+            dropper.addEventListener('dragover', function(e) {
+                e.preventDefault(); // On autorise le drop d'éléments
+                this.className = 'column drop_hover'; // Et on applique le style adéquat à notre zone de drop quand un élément la survole
+            });
+
+            dropper.addEventListener('dragleave', function() {
+                this.className = 'column'; // On revient au style de base lorsque l'élément quitte la zone de drop
+            });
+
+            var dndHandler = this; // Cette variable est nécessaire pour que l'événement « drop » ci-dessous accède facilement au namespace « dndHandler »
+
+            dropper.addEventListener('drop', function(e) {
+
+                var target = e.target,
+                    draggedElement = dndHandler.draggedElement, // Récupération de l'élément concerné
+                    clonedElement = draggedElement.cloneNode(true); // On créé immédiatement le clone de cet élément
+
+                while (target.className.indexOf('column') == -1) { // Cette boucle permet de remonter jusqu'à la zone de drop parente
+                    target = target.parentNode;
+                }
+
+                target.className = 'column'; // Application du style par défaut
+
+                clonedElement = target.appendChild(clonedElement); // Ajout de l'élément cloné à la zone de drop actuelle
+                dndHandler.applyDragEvents(clonedElement); // Nouvelle application des événements qui ont été perdus lors du cloneNode()
+                for (i=0; i < arraytasks.length; i++){
+                    if(arraytasks[i].id == draggedElement.parentNode.childNodes[4].value && arraytasks[i].title == draggedElement.childNodes[0].innerText && arraytasks[i].description == draggedElement.childNodes[3].childNodes[2].innerText){
+                        delete arraytasks[i];
+                        break;
+                    }
+                }
+                var array = {id:clonedElement.parentElement.childNodes[4].value, title:clonedElement.childNodes[0].innerText, description:clonedElement.childNodes[3].childNodes[2].innerText};
+                arraytasks.push(array); 
+                arraytasks = arraytasks.filter(function(n){ return n != undefined }); 
+                localStorage.setItem("tasks", JSON.stringify(arraytasks));    
+                draggedElement.parentNode.removeChild(draggedElement); // Suppression de l'élément d'origine
+                refresh_for_tasks();
+            });
+        }
+
+    }
+
     
     function saved_column(){
         for(i = 0; i < columns.length;i++){
@@ -42,26 +104,17 @@ window.onload =  function(){
                                                         '<input class="none" value="Valider" type="submit"/>'+
                                                     '</div>' +
                                                     '</div>';
-
-                        taskTitle = document.querySelectorAll('.taskTitle');
-                        zoomButton = document.querySelectorAll('.zoomButton');
-                        dezoomButton = document.querySelectorAll('.dezoomButton');
-                        deleteTasks = document.querySelectorAll('.deleteTask');
-                        tasksDescription = document.querySelectorAll('.taskDescription');
                         var array = {id:compteurColumns, title:tasks[j].title, description:tasks[j].description};
                         arraytasks.push(array);
                         localStorage.setItem("tasks", JSON.stringify(arraytasks));
-                        refresh_for_tasks();
                     }
                 }
             }
             localStorage.setItem("compteur", compteurColumns);
-            addPostitButton = document.querySelectorAll('.addTask');
-            deleteColumnButton = document.querySelectorAll('.deleteColumn');
-            columntitle = document.querySelectorAll('.title_column');
             var array = {id:compteurColumns, title:columns[i].title};
             arraycolumn.push(array);
             localStorage.setItem("columns", JSON.stringify(arraycolumn));
+            refresh_for_tasks();
             refresh_for_column(); 
         }
     }
@@ -80,19 +133,17 @@ window.onload =  function(){
                 '<input class="none input_text" type="text" name="title" value="Titre de la colonne"/>' +
                 '<input class="none" type="submit"/>' +
                 '<div class="all_icons_column">' +
-                    '<a href="#" class="addTask icon"><img src="../asset/img/add_task.png"/></a>' +
-                    '<a href="#" class="deleteColumn icon"><img src="../asset/img/remove_column.png"/></a>' +
+                    '<a href="" class="addTask icon"><img src="../asset/img/add_task.png"/></a>' +
+                    '<a href="" class="deleteColumn icon"><img src="../asset/img/remove_column.png"/></a>' +
                 '</div>' +
                 '<input class="none" type="text" name="idColumn" value="'+compteurColumns+'">' +
             '</div>' ;
-        addPostitButton = document.querySelectorAll('.addTask');
-        deleteColumnButton = document.querySelectorAll('.deleteColumn');
-        columntitle = document.querySelectorAll('.title_column');
         refresh_for_column();
         localStorage.setItem("compteur", compteurColumns);
         var array = {id:compteurColumns, title:"Titre de la colonne"};
         arraycolumn.push(array);
         localStorage.setItem("columns", JSON.stringify(arraycolumn));
+        refresh_for_tasks();
     }
 
 // this function add a new task in the right column
@@ -118,11 +169,6 @@ window.onload =  function(){
                 '<input class="none" value="Valider" type="submit"/>'+
             '</div>';
 
-        taskTitle = document.querySelectorAll('.taskTitle');
-        zoomButton = document.querySelectorAll('.zoomButton');
-        dezoomButton = document.querySelectorAll('.dezoomButton');
-        deleteTasks = document.querySelectorAll('.deleteTask');
-        tasksDescription = document.querySelectorAll('.taskDescription');
         refresh_for_tasks();
         var array = {id:parent.childNodes[4].value, title:"Titre de la tâche", description:"Description"};
         arraytasks.push(array);
@@ -299,7 +345,7 @@ window.onload =  function(){
             myInput.classList.add('none');
             myButton.classList.add('none');
         }
-        refresh_for_tasks();
+        refresh_for_column();
     }
 
     addColumnButton.onclick = function(){
@@ -308,6 +354,11 @@ window.onload =  function(){
 
 // this function is called when the user creat a new column or task, she actualise the variable wich take the number of button for delete add or change something
     function refresh_for_column(){
+
+        addPostitButton = document.querySelectorAll('.addTask');
+        deleteColumnButton = document.querySelectorAll('.deleteColumn');
+        columntitle = document.querySelectorAll('.title_column');
+
         for(var i = 0; i < addPostitButton.length; i++){
             addPostitButton[i].onclick = function () {
                 addTask(this.parentElement);
@@ -323,8 +374,21 @@ window.onload =  function(){
                 changetitle(this.parentElement);
             }
         }
+                var droppers = document.querySelectorAll('.column');
+                var droppersLen = droppers.length;
+
+        for (var i = 0; i < droppersLen; i++) {
+            dndHandler.applyDropEvents(droppers[i]); // Application des événements nécessaires aux zones de drop
+        }
     }
     function refresh_for_tasks(){
+        
+        taskTitle = document.querySelectorAll('.taskTitle');
+        zoomButton = document.querySelectorAll('.zoomButton');
+        dezoomButton = document.querySelectorAll('.dezoomButton');
+        deleteTasks = document.querySelectorAll('.deleteTask');
+        tasksDescription = document.querySelectorAll('.taskDescription');
+
         for(var i = 0; i < taskTitle.length; i++){
             taskTitle[i].onclick = function(){
                 changeTitleTask(this.parentElement);
@@ -350,5 +414,13 @@ window.onload =  function(){
                 changeDescriptionTask(this.parentElement);
             }
         }
+
+        var elements = document.querySelectorAll('.tasks');
+        var elementsLen = elements.length;
+
+        for (var i = 0; i < elementsLen; i++) {
+            dndHandler.applyDragEvents(elements[i]); // Application des paramètres nécessaires aux éléments déplaçables
+        }
+
     }
 };
